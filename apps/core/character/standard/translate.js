@@ -1,6 +1,6 @@
 const translates = {
-	caocao: "曹操",
-	hujia: "护驾",
+	caocao: "曹操 - Tào Tháo",
+	hujia: "护驾 - Hộ Giá",
 	hujia_info: "主公技，当你需要使用或打出一张【闪】时，你可以令其他魏势力角色选择是否打出一张【闪】。若有角色响应，则你视为使用或打出了一张【闪】。",
 	jianxiong: "奸雄",
 	jianxiong_info: "当你受到伤害后，你可以获得对你造成伤害的牌。",
