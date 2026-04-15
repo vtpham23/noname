@@ -1,7 +1,6 @@
 import { lib, game, ui, get, ai, _status } from "noname";
 
 const translates = {
-	```plaintext
 	clan_wuxian_prefix: "Tộc",
 	clan_wuban_prefix: "Tộc",
 	clan_xunshu_prefix: "Tộc",
