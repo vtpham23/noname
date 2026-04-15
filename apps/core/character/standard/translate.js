@@ -163,6 +163,5 @@ const translates = {
 	stdqingjiao: "Khinh Giảo",
 	stdqingjiao_info: "Chủ Công Kỹ. Khóa Kỹ. Trong giai đoạn kết thúc, nếu lượt này bạn đã gây sát thương cho tướng thế lực Quần Hùng khác, bạn rút một lá bài.",
 };
-};
 
 export default translates;
