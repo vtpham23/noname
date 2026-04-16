@@ -20,7 +20,7 @@ on:
       - prettier.config.js
       - prettier.config.mjs
     branches:
-      - "master"
+      - "mini"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
