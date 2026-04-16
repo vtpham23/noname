@@ -59,7 +59,7 @@
 			"collab",
 			"onlyOL"
 		],
-		"sgscards": ["standard", "extra", "sp", "guozhan", "zhulu", "yingbian", "yongjian"],
+		"sgscards": ["standard"],
 		"sgsmodes": ["identity", "guozhan", "versus", "doudizhu", "single", "brawl", "connect"],
 		"stockmode": ["identity", "guozhan", "versus", "boss", "doudizhu", "single", "chess", "stone", "connect", "brawl", "tafang"],
 		"stockextension": ["boss", "cardpile", "coin"],
@@ -161,7 +161,7 @@
 	"intro": "i",
 	"right_click": "pause",
 	"sort": "type_sort",
-	"cards": ["standard", "extra", "sp", "zhulu", "yingbian", "yongjian", "yunchou", "xianxia", "huodong", "wandian"],
+	"cards": ["standard"],
 	"characters": [
 		"standard",
 		"shenhua",
@@ -208,7 +208,7 @@
 	"connect_characters": ["diy", "ddd", "key"],
 	"connect_cards": ["huanlekapai", "guozhan"],
 	"plays": [],
-	"extensions": ["3D精选", "杀海拾遗", "欢乐卡牌", "玩点论杀", "英雄杀", "十周年UI", "MVP扩展", "挑战卡牌", "补应变卡"],
+	"extensions": [],
 	"extension_3D精选_enable": false,
 	"extension_欢乐卡牌_enable": false,
 	"extension_英雄杀_enable": false,
