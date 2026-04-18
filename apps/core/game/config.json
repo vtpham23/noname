@@ -59,7 +59,7 @@
 			"collab",
 			"onlyOL"
 		],
-		"sgscards": ["standard"],
+		"sgscards": ["standard","extra"],
 		"sgsmodes": ["identity", "guozhan", "versus", "doudizhu", "single", "brawl", "connect"],
 		"stockmode": ["identity", "guozhan", "versus", "boss", "doudizhu", "single", "chess", "stone", "connect", "brawl", "tafang"],
 		"stockextension": ["boss", "cardpile", "coin"],
@@ -161,7 +161,7 @@
 	"intro": "i",
 	"right_click": "pause",
 	"sort": "type_sort",
-	"cards": ["standard"],
+	"cards": ["standard", "extra"],
 	"characters": [
 		"standard",
 		"shenhua",
