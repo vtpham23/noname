@@ -110,16 +110,16 @@ game.import("card", function () {
 					if (lib.translate["sha_nature_" + natures[0] + "_info"]) {
 						return lib.translate["sha_nature_" + natures[0] + "_info"];
 					}
-					var str = "出牌阶段，对你攻击范围内的一名角色使用。其须使用一张【闪】，";
+					var str = "Giai đoạn ra bài, sử dụng đối với một nhân vật trong tầm tấn công của bạn. Người đó phải sử dụng một lá Thiểm，";
 					if (natures.includes("stab")) {
-						str += "且在此之后需弃置一张手牌（没有则不弃），";
+						str += "và sau đó cần vứt bỏ một lá bài trên tay (không có thì không vứt)，";
 					}
-					str += "否则你对其造成1点";
+					str += "nếu không bạn sẽ gây cho người đó 1 điểm";
 					var linked = lib.linked.filter(n => natures.includes(n));
 					if (linked.length) {
-						str += get.translation(get.nature(linked)) + "属性";
+						str += get.translation(get.nature(linked)) + "thuộc tính";
 					}
-					str += "伤害。";
+					str += "sát thương。";
 					return str;
 				},
 				defaultYingbianEffect: "add",
@@ -143,7 +143,7 @@ game.import("card", function () {
 					} else if (event.skipShan) {
 						event._result = { bool: true, result: "shaned" };
 					} else {
-						var next = target.chooseToUse("请使用一张闪响应杀");
+						var next = target.chooseToUse("Hãy sử dụng 1 lá Thiểm để hưởng ứng Sát");
 						next.set("type", "respondShan");
 						next.set("filterCard", function (card, player) {
 							if (get.name(card) !== "shan") {
@@ -152,9 +152,9 @@ game.import("card", function () {
 							return lib.filter.cardEnabled(card, player, "forceEnable");
 						});
 						if (event.shanRequired > 1) {
-							next.set("prompt2", "（共需使用" + event.shanRequired + "张闪）");
+							next.set("prompt2", "（Cần sử dụng tổng cộng" + event.shanRequired + "lá Thiểm）");
 						} else if (game.hasNature(event.card, "stab")) {
-							next.set("prompt2", "（在此之后仍需弃置一张手牌）");
+							next.set("prompt2", "（sau đó vẫn cần vứt bỏ một lá bài trên tay）");
 						}
 						next.set("ai1", function (card) {
 							if (get.event().toUse) {
@@ -240,7 +240,7 @@ game.import("card", function () {
 					}
 					event.finish();
 					"step 4";
-					target.chooseToDiscard("刺杀：请弃置一张牌，否则此【杀】依然造成伤害").set("ai", function (card) {
+					target.chooseToDiscard("Thích sát: Hãy vứt bỏ một lá bài, nếu không lá Sát này vẫn gây sát thương").set("ai", function (card) {
 						var target = _status.event.player;
 						var evt = _status.event.getParent();
 						var bool = true;
@@ -3929,7 +3929,7 @@ game.import("card", function () {
 				filter(event, player) {
 					return player.countCards("hs") >= 2;
 				},
-				prompt: "将两张手牌当杀使用或打出",
+				prompt: "Lấy hai lá bài trên tay xem như Sát để sử dụng hoặc đánh ra.",
 				check(card) {
 					let player = _status.event.player;
 					if (
@@ -5260,47 +5260,47 @@ game.import("card", function () {
 				}
 				return "";
 			},
-			dilu_info: "锁定技，其他角色计算与你的距离+1。",
-			zhuahuang_info: "锁定技，其他角色计算与你的距离+1。",
-			chitu_info: "锁定技，你计算与其他角色的距离-1。",
-			dawan_info: "锁定技，你计算与其他角色的距离-1。",
-			zixin_info: "锁定技，你计算与其他角色的距离-1。",
-			zhuge_skill_info: "锁定技，你于出牌阶段内使用【杀】无次数限制。",
-			zhuge_info: "锁定技，你于出牌阶段内使用【杀】无次数限制。",
-			cixiong_skill_info: "当你使用【杀】指定一名异性的目标角色后，你可以令其选择一项：1.弃置一张手牌；2.令你摸一张牌。",
-			cixiong_info: "当你使用【杀】指定一名异性的目标角色后，你可以令其选择一项：1.弃置一张手牌；2.令你摸一张牌。",
-			qinggang_skill_info: "锁定技，当你使用【杀】指定一名目标角色后，你令其防具技能无效直到此【杀】被抵消或造成伤害。",
-			qinggang_info: "锁定技，当你使用【杀】指定一名目标角色后，你令其防具技能无效直到此【杀】被抵消或造成伤害。",
-			qinglong_skill_info: "当你使用的【杀】被目标角色使用的【闪】抵消时，你可以对其使用一张【杀】（无距离限制）。",
-			qinglong_guozhan_info: "锁定技，当你使用【杀】指定目标后，所有目标角色不能明置武将牌直到此【杀】结算完毕为止。",
-			qinglong_info: "当你使用的【杀】被目标角色使用的【闪】抵消时，你可以对其使用一张【杀】（无距离限制）。",
-			qinglong_info_guozhan: "锁定技，当你使用【杀】指定目标后，所有目标角色不能明置武将牌直到此【杀】结算完毕为止。",
-			zhangba_skill_info: "你可以将两张手牌当【杀】使用或打出。",
-			zhangba_info: "你可以将两张手牌当【杀】使用或打出。",
-			guanshi_skill_info: "当你使用的【杀】被目标角色使用的【闪】抵消时，你可以弃置两张牌，令此【杀】依然对其造成伤害。",
-			guanshi_info: "当你使用的【杀】被目标角色使用的【闪】抵消时，你可以弃置两张牌，令此【杀】依然对其造成伤害。",
-			fangtian_skill_info: "你使用的【杀】若是你最后的手牌，你可以额外选择至多两个目标。",
-			fangtian_info: "你使用的【杀】若是你最后的手牌，你可以额外选择至多两个目标。",
-			fangtian_info_guozhan: "你使用【杀】可以指定任意名角色为目标（不能包含势力相同的角色），若任意一名目标角色使用【闪】抵消了此【杀】，则此【杀】对剩余的目标角色无效。",
-			qilin_skill_info: "当你使用【杀】对目标角色造成伤害时，你可以弃置其装备区里的一张坐骑牌。",
-			qilin_info: "当你使用【杀】对目标角色造成伤害时，你可以弃置其装备区里的一张坐骑牌。",
-			wugu_info: "出牌阶段，对所有角色使用。（选择目标后）你从牌堆顶亮出等同于目标数量的牌，每名目标角色获得这些牌中（剩余的）的任意一张。",
-			taoyuan_info: "出牌阶段，对所有角色使用。每名目标角色回复1点体力。",
-			nanman_info: "出牌阶段，对所有其他角色使用。每名目标角色需打出一张【杀】，否则受到1点伤害。",
-			wanjian_info: "出牌阶段，对所有其他角色使用。每名目标角色需打出一张【闪】，否则受到1点伤害。",
-			wuzhong_info: "出牌阶段，对你使用。你摸两张牌。",
-			juedou_info: "出牌阶段，对一名其他角色使用。由其开始，其与你轮流打出一张【杀】，直到其中一方未打出【杀】为止。未打出【杀】的一方受到另一方对其造成的1点伤害。",
-			shunshou_info: "出牌阶段，对距离为1且区域里有牌的一名其他角色使用。你获得其区域里的一张牌。",
-			guohe_info: "出牌阶段，对区域里有牌的一名其他角色使用。你弃置其区域里的一张牌。",
-			jiedao_info: "出牌阶段，对装备区里有武器牌且有使用【杀】的目标的一名其他角色使用。令其对你指定的一名角色使用一张【杀】，否则将其装备区里的武器牌交给你。",
-			jiedao_append: '<span class="text" style="font-family: yuanli">这是一种十分含蓄的计谋。</span>',
-			wuxie_info: "一张锦囊牌生效前，对此牌使用。抵消此牌对一名角色产生的效果，或抵消另一张【无懈可击】产生的效果。",
-			lebu_info: "出牌阶段，对一名其他角色使用。若判定结果不为红桃，跳过其出牌阶段。",
-			shandian_info: "出牌阶段，对自己使用。若判定结果为黑桃2~9，则目标角色受到3点雷电伤害。若判定不为黑桃2~9，将之移动到下家的判定区里。",
-			icesha_skill: "冰冻",
-			icesha_skill_info: "防止即将造成的伤害，改为依次弃置其两张牌。",
-			sha_notshan: "invisible",
-			qinggang2: "破防",
+			dilu_info: "Tỏa định kỹ, các nhân vật khác tính khoảng cách đến bạn +1.",
+zhuahuang_info: "Tỏa định kỹ, các nhân vật khác tính khoảng cách đến bạn +1.",
+chitu_info: "Tỏa định kỹ, bạn tính khoảng cách đến các nhân vật khác -1.",
+dawan_info: "Tỏa định kỹ, bạn tính khoảng cách đến các nhân vật khác -1.",
+zixin_info: "Tỏa định kỹ, bạn tính khoảng cách đến các nhân vật khác -1.",
+zhuge_skill_info: "Tỏa định kỹ, trong giai đoạn ra bài bạn sử dụng 【Sát】 không giới hạn số lần.",
+zhuge_info: "Tỏa định kỹ, trong giai đoạn ra bài bạn sử dụng 【Sát】 không giới hạn số lần.",
+cixiong_skill_info: "Sau khi bạn sử dụng 【Sát】 chỉ định một nhân vật mục tiêu khác giới, bạn có thể khiến người đó chọn một: 1. Vứt bỏ một lá bài trên tay; 2. Cho bạn rút một lá bài.",
+cixiong_info: "Sau khi bạn sử dụng 【Sát】 chỉ định một nhân vật mục tiêu khác giới, bạn có thể khiến người đó chọn một: 1. Vứt bỏ một lá bài trên tay; 2. Cho bạn rút một lá bài.",
+qinggang_skill_info: "Tỏa định kỹ, sau khi bạn sử dụng 【Sát】 chỉ định một nhân vật mục tiêu, bạn khiến kỹ năng phòng cụ của người đó vô hiệu cho đến khi lá 【Sát】 này bị triệt tiêu hoặc gây sát thương.",
+qinggang_info: "Tỏa định kỹ, sau khi bạn sử dụng 【Sát】 chỉ định một nhân vật mục tiêu, bạn khiến kỹ năng phòng cụ của người đó vô hiệu cho đến khi lá 【Sát】 này bị triệt tiêu hoặc gây sát thương.",
+qinglong_skill_info: "Khi 【Sát】 bạn sử dụng bị 【Thiểm】 của nhân vật mục tiêu sử dụng triệt tiêu, bạn có thể sử dụng một lá 【Sát】 đối với người đó (không giới hạn khoảng cách).",
+qinglong_guozhan_info: "Tỏa định kỹ, sau khi bạn sử dụng 【Sát】 chỉ định mục tiêu, tất cả nhân vật mục tiêu không thể lật sáng lá võ tướng cho đến khi lá 【Sát】 này kết toán xong.",
+qinglong_info: "Khi 【Sát】 bạn sử dụng bị 【Thiểm】 của nhân vật mục tiêu sử dụng triệt tiêu, bạn có thể sử dụng một lá 【Sát】 đối với người đó (không giới hạn khoảng cách).",
+qinglong_info_guozhan: "Tỏa định kỹ, sau khi bạn sử dụng 【Sát】 chỉ định mục tiêu, tất cả nhân vật mục tiêu không thể lật sáng lá võ tướng cho đến khi lá 【Sát】 này kết toán xong.",
+zhangba_skill_info: "Bạn có thể lấy hai lá bài trên tay xem như 【Sát】 để sử dụng hoặc đánh ra.",
+zhangba_info: "Bạn có thể lấy hai lá bài trên tay xem như 【Sát】 để sử dụng hoặc đánh ra.",
+guanshi_skill_info: "Khi 【Sát】 bạn sử dụng bị 【Thiểm】 của nhân vật mục tiêu sử dụng triệt tiêu, bạn có thể vứt bỏ hai lá bài, khiến lá 【Sát】 này vẫn gây sát thương cho người đó.",
+guanshi_info: "Khi 【Sát】 bạn sử dụng bị 【Thiểm】 của nhân vật mục tiêu sử dụng triệt tiêu, bạn có thể vứt bỏ hai lá bài, khiến lá 【Sát】 này vẫn gây sát thương cho người đó.",
+fangtian_skill_info: "Nếu 【Sát】 bạn sử dụng là lá bài trên tay cuối cùng của bạn, bạn có thể chọn thêm tối đa hai mục tiêu.",
+fangtian_info: "Nếu 【Sát】 bạn sử dụng là lá bài trên tay cuối cùng của bạn, bạn có thể chọn thêm tối đa hai mục tiêu.",
+fangtian_info_guozhan: "Bạn sử dụng 【Sát】 có thể chỉ định số nhân vật bất kỳ làm mục tiêu (không được bao gồm các nhân vật cùng thế lực), nếu một nhân vật mục tiêu bất kỳ sử dụng 【Thiểm】 triệt tiêu lá 【Sát】 này, thì lá 【Sát】 này vô hiệu đối với các nhân vật mục tiêu còn lại.",
+qilin_skill_info: "Khi bạn sử dụng 【Sát】 gây sát thương cho nhân vật mục tiêu, bạn có thể vứt bỏ một lá bài thú cưỡi trong khu trang bị của người đó.",
+qilin_info: "Khi bạn sử dụng 【Sát】 gây sát thương cho nhân vật mục tiêu, bạn có thể vứt bỏ một lá bài thú cưỡi trong khu trang bị của người đó.",
+wugu_info: "Giai đoạn ra bài, sử dụng lên tất cả nhân vật. (Sau khi chọn mục tiêu) Bạn lật sáng số bài từ trên cùng xấp bài bằng với số lượng mục tiêu, mỗi nhân vật mục tiêu nhận một lá bất kỳ (còn lại) trong những lá bài này.",
+taoyuan_info: "Giai đoạn ra bài, sử dụng lên tất cả nhân vật. Mỗi nhân vật mục tiêu hồi 1 điểm thể lực.",
+nanman_info: "Giai đoạn ra bài, sử dụng lên tất cả các nhân vật khác. Mỗi nhân vật mục tiêu cần đánh ra một lá 【Sát】, nếu không nhận 1 điểm sát thương.",
+wanjian_info: "Giai đoạn ra bài, sử dụng lên tất cả các nhân vật khác. Mỗi nhân vật mục tiêu cần đánh ra một lá 【Thiểm】, nếu không nhận 1 điểm sát thương.",
+wuzhong_info: "Giai đoạn ra bài, sử dụng lên bản thân. Bạn rút hai lá bài.",
+juedou_info: "Giai đoạn ra bài, sử dụng lên một nhân vật khác. Bắt đầu từ người đó, người đó và bạn luân phiên đánh ra một lá 【Sát】, cho đến khi có một bên không đánh ra 【Sát】. Bên không đánh ra 【Sát】 nhận 1 điểm sát thương do bên kia gây ra.",
+shunshou_info: "Giai đoạn ra bài, sử dụng đối với một nhân vật khác có khoảng cách là 1 và trong khu vực có bài. Bạn nhận một lá bài trong khu vực của người đó.",
+guohe_info: "Giai đoạn ra bài, sử dụng đối với một nhân vật khác trong khu vực có bài. Bạn vứt bỏ một lá bài trong khu vực của người đó.",
+jiedao_info: "Giai đoạn ra bài, sử dụng đối với một nhân vật khác trong khu trang bị có bài vũ khí và có mục tiêu để sử dụng 【Sát】. Khiến người đó sử dụng một lá 【Sát】 đối với một nhân vật do bạn chỉ định, nếu không phải giao bài vũ khí trong khu trang bị của họ cho bạn.",
+jiedao_append: 'Đây là một loại mưu kế vô cùng kín đáo.',
+wuxie_info: "Trước khi một lá cẩm nang có hiệu lực, sử dụng lên lá bài này. Triệt tiêu hiệu quả mà lá bài này gây ra cho một nhân vật, hoặc triệt tiêu hiệu quả mà một lá 【Vô Giải Khả Kích】 khác gây ra.",
+lebu_info: "Giai đoạn ra bài, sử dụng lên một nhân vật khác. Nếu kết quả phán định không phải Cơ, bỏ qua giai đoạn ra bài của người đó.",
+shandian_info: "Giai đoạn ra bài, sử dụng lên bản thân. Nếu kết quả phán định là Bích từ 2~9, thì nhân vật mục tiêu nhận 3 điểm sát thương sấm sét. Nếu phán định không phải Bích từ 2~9, di chuyển nó đến khu phán định của người tiếp theo.",
+icesha_skill: "Băng Đống",
+icesha_skill_info: "Ngăn chặn sát thương sắp gây ra, đổi thành lần lượt vứt bỏ hai lá bài của người đó.",
+sha_notshan: "invisible",
+qinggang2: "Phá Phòng",
 		},
 		list: [
 			["spade", 7, "sha"],
