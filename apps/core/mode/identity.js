@@ -87,14 +87,14 @@ export default () => {
 				game.saveConfig("version", lib.version);
 
 				await game.promises.saveConfig("new_tutorial", true);
-				ui.create.dialog("欢迎来到无名杀，是否进入新手向导？");
-				ui.dialog.add('<div class="text center">跳过后，你可以在选项-其它中重置新手向导');
+				ui.create.dialog("Chào mừng đến với Vô Danh Tam Quốc Sát, bạn có vào hướng dẫn cho người mới không?");
+				ui.dialog.add('<div class="text center">Sau khi bỏ qua, bạn có thể thiết lập lại hướng dẫn cho người mới trong Tùy chọn - Khác');
 				ui.auto.hide();
 
 				const { promise, resolve } = Promise.withResolvers();
 
-				ui.create.control("跳过向导", () => resolve(true));
-				ui.create.control("继续", () => resolve(false));
+				ui.create.control("Bỏ qua hướng dẫn", () => resolve(true));
+				ui.create.control("Tiếp tục", () => resolve(false));
 
 				const skip_tutorial = await promise;
 
@@ -110,27 +110,27 @@ export default () => {
 				async function tutorial() {
 					if (!lib.config.phonelayout && !window.decadeUI) {
 						clear();
-						ui.create.dialog("如果你在使用手机，可能会觉得按钮有点小" + "，将布局改成移动可以使按钮变大");
-						ui.dialog.add('<div class="text center">你可以在选项-外观-布局中更改此设置');
-						var lcontrol = ui.create.control("使用移动布局", function () {
+						ui.create.dialog("Nếu bạn đang sử dụng điện thoại di động, có thể sẽ cảm thấy nút bấm hơi nhỏ một chút" + "，Thay đổi bố cục thành di động có thể làm cho nút bấm lớn hơn");
+						ui.dialog.add('<div class="text center">Bạn có thể thay đổi thiết lập này trong Tùy chọn - Giao diện - Bố cục');
+						var lcontrol = ui.create.control("Sử dụng bố cục di động", function () {
 							if (lib.config.phonelayout) {
-								ui.control.firstChild.firstChild.innerHTML = "使用移动布局";
+								ui.control.firstChild.firstChild.innerHTML = "Sử dụng bố cục di động";
 								game.saveConfig("phonelayout", false);
 								lib.init.layout("mobile");
 							} else {
-								ui.control.firstChild.firstChild.innerHTML = "使用默认布局";
+								ui.control.firstChild.firstChild.innerHTML = "Sử dụng bố cục mặc định";
 								game.saveConfig("phonelayout", true);
 								lib.init.layout("mobile");
 							}
 						});
-						await new Promise(resolve => ui.create.control("继续", resolve));
+						await new Promise(resolve => ui.create.control("Tiếp tục", resolve));
 					}
 
 					if (lib.config.touchscreen) {
 						clear();
-						ui.create.dialog("触屏模式中，下划可以显示菜单，上划可以切换托管，双指单击可以暂停");
-						ui.dialog.add('<div class="text center">你可以在选项-通用-中更改手势设置');
-						await new Promise(resolve => ui.create.control("继续", resolve));
+						ui.create.dialog("Trong chế độ cảm ứng, vuốt xuống có thể hiển thị menu, vuốt lên có thể chuyển đổi ủy thác, chạm hai ngón tay có thể tạm dừng");
+						ui.dialog.add('<div class="text center">Bạn có thể thay đổi thiết lập cử chỉ trong Tùy chọn - Chung');
+						await new Promise(resolve => ui.create.control("Tiếp tục", resolve));
 					}
 					let Click_Left_Menu = function (html_text) {
 						let left_menu_button = document.querySelectorAll('.menu-content .menubutton');
@@ -151,46 +151,46 @@ export default () => {
 					clear();
 					ui.window.classList.add("noclick_important");
 					ui.click.configMenu();
-					ui.click.menuTab("开始");
+					ui.click.menuTab("Bắt đầu");
 					if (window.decadeUI) ui.arena.classList.remove("menupaused");
 					ui.control.classList.add("noclick_click_important");
 					ui.control.style.top = "calc(100% - 105px)";
-					await new Promise(resolve => ui.create.control("在菜单中，可以进行各项设置", resolve));
-					ui.click.menuTab("选项");
-					Click_Left_Menu("通用");
-					await new Promise(resolve => ui.controls[0].replace("如果你感到游戏较卡，在选项-通用-流畅模式中，可以开启流畅模式", resolve));
-					ui.click.menuTab("选项");
-					Click_Left_Menu("外观");
-					await new Promise(resolve => ui.controls[0].replace("在选项-外观-介面缩放中，可以设置介面大小", resolve));
-					ui.click.menuTab("选项");
-					Click_Left_Menu("技能");
-					await new Promise(resolve => ui.controls[0].replace("在选项-技能中，可以设置自动发动或双将禁配的技能", resolve));
-					ui.click.menuTab("武将");
-					await new Promise(resolve => ui.controls[0].replace("在武将中，单击武将可以将其禁用", resolve));
-					ui.click.menuTab("卡牌");
-					await new Promise(resolve => ui.controls[0].replace("在卡牌中，单击卡牌可以将其禁用", resolve));
-					ui.click.menuTab("其它");
-					Click_Left_Menu("命令");
-					await new Promise(resolve => ui.controls[0].replace("在其它-命令中可以输入游戏命令", resolve));
-					ui.click.menuTab("其它");
-					Click_Left_Menu("录像");
-					await new Promise(resolve => ui.controls[0].replace("在其它-录像管理录像", resolve));
+					await new Promise(resolve => ui.create.control("Trong menu, có thể tiến hành các thiết lập khác nhau", resolve));
+					ui.click.menuTab("Tuỳ chọn");
+					Click_Left_Menu("Thông Dụng");
+					await new Promise(resolve => ui.controls[0].replace("Nếu bạn cảm thấy trò chơi hơi giật, trong Tùy chọn - Chung - Chế độ mượt mà, có thể bật chế độ mượt mà", resolve));
+					ui.click.menuTab("Tuỳ chọn");
+					Click_Left_Menu("Giao diện - ngoại quan");
+					await new Promise(resolve => ui.controls[0].replace("Trong Tùy chọn - Giao diện - Tỷ lệ giao diện, bạn có thể thiết lập kích thước giao diện.", resolve));
+					ui.click.menuTab("Tuỳ chọn");
+					Click_Left_Menu("Kỹ năng");
+					await new Promise(resolve => ui.controls[0].replace("Trong mục Tùy chọn - Kỹ năng, bạn có thể thiết lập để các kỹ năng tự động kích hoạt hoặc bị hạn chế khi được ghép cặp với hai tướng.", resolve));
+					ui.click.menuTab("Võ tướng");
+					await new Promise(resolve => ui.controls[0].replace("Trong mục Võ Tướng, nhấp chuột vào võ tướng nào sẽ vô hiệu  võ tướng đó.", resolve));
+					ui.click.menuTab("Thẻ bài");
+					await new Promise(resolve => ui.controls[0].replace("Trong mục Thẻ bài, nhấp chuột vào thẻ bài nào sẽ vô hiệu thẻ bài đó.", resolve));
+					ui.click.menuTab("Khác");
+					Click_Left_Menu("Mệnh Lệnh");
+					await new Promise(resolve => ui.controls[0].replace("Bạn có thể nhập các lệnh trò chơi trong mục Khác - Lệnh.", resolve));
+					ui.click.menuTab("Khác");
+					Click_Left_Menu("Video");
+					await new Promise(resolve => ui.controls[0].replace("Ở mục Khác-Video quản lý video", resolve));
 					if (game.download) {
-						ui.click.menuTab("其它");
-						Click_Left_Menu("更新");
-						await new Promise(resolve => ui.controls[0].replace("在其它-更新中，可以检查更新和下载素材", resolve));
+						ui.click.menuTab("Khác");
+						Click_Left_Menu("Cập nhật");
+						await new Promise(resolve => ui.controls[0].replace("Trong mục Khác - Cập nhật, bạn có thể kiểm tra các bản cập nhật và tải xuống tài liệu.", resolve));
 					}
-					ui.click.menuTab("其它");
-					Click_Left_Menu("帮助");
-					await new Promise(resolve => ui.controls[0].replace("在其它-帮助中，获取游戏相关说明及帮助", resolve));
+					ui.click.menuTab("Khác");
+					Click_Left_Menu("Hỗ trợ");
+					await new Promise(resolve => ui.controls[0].replace("Bạn có thể tìm hướng dẫn và trợ giúp liên quan đến trò chơi trong mục Khác - Trợ giúp.", resolve));
 					ui.click.configMenu();
 					ui.window.classList.remove("noclick_important");
 					ui.control.classList.remove("noclick_click_important");
 					ui.control.style.top = "";
 
 					clear();
-					ui.create.dialog("如果还有其它问题，欢迎来到百度无名杀吧进行交流");
-					await new Promise(resolve => ui.create.control("完成", resolve));
+					ui.create.dialog("Nếu bạn có bất kỳ câu hỏi nào khác, vui lòng truy cập diễn đàn Baidu Wumingsha để thảo luận.");
+					await new Promise(resolve => ui.create.control("Hoàn thành", resolve));
 				}
 
 				function clear() {
@@ -604,17 +604,17 @@ export default () => {
 					}
 					if (player.identity.slice(0, 1) == "r") {
 						return {
-							cai2: "猜",
-							rZhong: "忠",
-							rNei: "内",
-							rYe: "野",
+							cai2: "Đoán",
+							rZhong: "Trung",
+							rNei: "Nội",
+							rYe: "Dã",
 						};
 					}
 					return {
-						cai: "猜",
-						bZhong: "忠",
-						bNei: "内",
-						bYe: "野",
+						cai: "Đoán",
+						bZhong: "Trung",
+						bNei: "Nội",
+						bYe: "Dã",
 					};
 				} else if (_status.mode == "zhong") {
 					if (player.fanfixed) {
@@ -622,56 +622,56 @@ export default () => {
 					}
 					if (game.zhu && game.zhu.isZhu) {
 						return {
-							fan: "反",
-							zhong: "忠",
-							nei: "内",
-							cai: "猜",
+							fan: "Phản",
+							zhong: "Trung",
+							nei: "Nội",
+							cai: "Đoán",
 						};
 					} else {
 						return {
-							fan: "反",
-							zhong: "忠",
-							nei: "内",
-							zhu: "主",
-							cai: "猜",
+							fan: "Phản",
+							zhong: "Trung",
+							nei: "Nội",
+							zhu: "Chủ",
+							cai: "Đoán",
 						};
 					}
 				} else if (_status.mode == "stratagem") {
 					if ((game.zhu && game.zhu.isZhu && game.zhu.identityShown) || game.me.identity == "zhu") {
 						return {
-							fan: "反",
-							zhong: "忠",
-							nei: "内",
-							enemy: "敌",
-							friend: "友",
-							cai: "猜",
+							fan: "Phản",
+							zhong: "Trung",
+							nei: "Nội",
+							enemy: "Địch",
+							friend: "Hữu",
+							cai: "Đoán",
 						};
 					} else {
 						return {
-							fan: "反",
-							zhong: "忠",
-							nei: "内",
-							zhu: "主",
-							enemy: "敌",
-							friend: "友",
-							cai: "猜",
+							fan: "Phản",
+							zhong: "Trung",
+							nei: "Nội",
+							zhu: "Chủ",
+							enemy: "Địch",
+							friend: "Hữu",
+							cai: "Đoán",
 						};
 					}
 				} else {
 					if (get.config("enable_commoner")) {
 						return {
-							fan: "反",
-							zhong: "忠",
-							nei: "内",
-							commoner: "民",
-							cai: "猜",
+							fan: "Phản",
+							zhong: "Trung",
+							nei: "Nội",
+							commoner: "Dân",
+							cai: "Đoán",
 						};
 					} else {
 						return {
-							fan: "反",
-							zhong: "忠",
-							nei: "内",
-							cai: "猜",
+							fan: "Phản",
+							zhong: "Trung",
+							nei: "Nội",
+							cai: "Đoán",
 						};
 					}
 				}
@@ -680,41 +680,41 @@ export default () => {
 				for (var i in list) {
 					switch (i) {
 						case "fan":
-							list[i] = "反贼";
+							list[i] = "Phản tặc";
 							break;
 						case "zhong":
-							list[i] = "忠臣";
+							list[i] = "Trung thần";
 							break;
 						case "nei":
-							list[i] = "内奸";
+							list[i] = "Nội gián";
 							break;
 						case "commoner":
-							list[i] = "平民";
+							list[i] = "Bình dân";
 							break;
 						case "zhu":
-							list[i] = "主公";
+							list[i] = "Chủ công";
 							break;
 						case "enemy":
-							list[i] = "敌方";
+							list[i] = "Địch Phương";
 							break;
 						case "friend":
-							list[i] = "友方";
+							list[i] = "Hữu Phương";
 							break;
 						case "cai":
 						case "cai2":
-							list[i] = "未知";
+							list[i] = "Đoán";
 							break;
 						case "rZhong":
 						case "bZhong":
-							list[i] = "前锋";
+							list[i] = "Tiền Phong";
 							break;
 						case "rNei":
 						case "bNei":
-							list[i] = "细作";
+							list[i] = "Tế tác";
 							break;
 						case "rYe":
 						case "bYe":
-							list[i] = "野心家";
+							list[i] = "Dã tâm gia";
 							break;
 					}
 				}
@@ -1311,7 +1311,7 @@ export default () => {
 						if (event.map_zhu[event[game.me.identity]]) {
 							list.addArray(event.map_zhu[event[game.me.identity]].randomGets(2));
 						}
-						game.me.chooseButton(true, ["请选择您的武将牌", [list, "character"]]);
+						game.me.chooseButton(true, ["Vui lòng lựa chọn thẻ võ tướng", [list, "character"]]);
 					}
 					"step 5";
 					if (event.isZhu) {
@@ -1348,7 +1348,7 @@ export default () => {
 					}
 					if (!event.isZhu) {
 						var group = game.me.identity.indexOf("r") == 0 ? event.rZhu : event.bZhu;
-						game.me.chooseButton(true, ["请选择您的武将牌", [event.map[group].randomRemove(5), "character"]]);
+						game.me.chooseButton(true, ["Vui lòng lựa chọn thẻ võ tướng", [event.map[group].randomRemove(5), "character"]]);
 					}
 					"step 6";
 					if (!event.isZhu) {
@@ -1536,7 +1536,7 @@ export default () => {
 							const groups = get.selectGroup(name).map(group => ["", "", `group_${group}`]),
 								type = get.selectGroup(name, true);
 							shen[i]._groupChosen = type;
-							shen[i] = [shen[i], ["请选择你的势力", [groups, "vcard"]], 1, true];
+							shen[i] = [shen[i], ["Vui lòng lựa chọn thế lực", [groups, "vcard"]], 1, true];
 						}
 						game.me
 							.chooseButtonOL(shen, function (player, result) {
@@ -2397,7 +2397,7 @@ export default () => {
 						game.me._groupChosen = type;
 					}
 					if (groups.length) {
-						game.me.chooseButton(["请选择你的势力", [groups.map(group => ["", "", `group_${group}`]), "vcard"]], true).set("direct", true);
+						game.me.chooseButton(["Vui lòng lựa chọn thế lực", [groups.map(group => ["", "", `group_${group}`]), "vcard"]], true).set("direct", true);
 					}
 					"step 2";
 					if (result.links?.length) {
@@ -2707,7 +2707,7 @@ export default () => {
 					}
 					if (groups.length) {
 						game.zhu
-							.chooseButton(["请选择你的势力", [groups.map(group => ["", "", `group_${group}`]), "vcard"]], true)
+							.chooseButton(["Vui lòng lựa chọn thế lực", [groups.map(group => ["", "", `group_${group}`]), "vcard"]], true)
 							.set("ai", () => {
 								return Math.random();
 							})
@@ -2782,7 +2782,7 @@ export default () => {
 							if (type !== "default") {
 								shen[i]._groupChosen = type;
 							}
-							shen[i] = [shen[i], ["请选择你的势力", [groups, "vcard"]], 1, true, "direct"];
+							shen[i] = [shen[i], ["Vui lòng lựa chọn thế lực", [groups, "vcard"]], 1, true, "direct"];
 						}
 						game.me
 							.chooseButtonOL(shen, function (player, result) {
@@ -2895,59 +2895,59 @@ export default () => {
 			},
 		},
 		translate: {
-			zhu: "主",
-			zhong: "忠",
-			mingzhong: "忠",
-			nei: "内",
-			fan: "反",
-			commoner: "民",
-			cai: "猜",
-			cai2: "猜",
-			rZhu: "主",
-			rZhong: "忠",
-			rNei: "内",
-			rYe: "野",
-			rZhu2: "主帅",
-			rZhong2: "前锋",
-			rNei2: "细作",
-			rYe2: "野心家",
-			bZhu: "主",
-			bZhong: "忠",
-			bNei: "内",
-			bYe: "野",
-			bZhu2: "主帅",
-			bZhong2: "前锋",
-			bNei2: "细作",
-			bYe2: "野心家",
-			zhu2: "主公",
-			zhong2: "忠臣",
-			mingzhong2: "明忠",
-			nei2: "内奸",
-			fan2: "反贼",
-			commoner2: "平民",
-			random2: "随机",
-			enemy: "敌",
-			friend: "友",
-			enemy2: "敌方",
-			friend2: "友方",
-			identity_junshi_bg: "师",
-			identity_dajiang_bg: "将",
-			identity_zeishou_bg: "首",
-			identity_junshi: "军师",
-			identity_dajiang: "大将",
-			identity_zeishou: "贼首",
-			ai_strategy_1: "均衡",
-			ai_strategy_2: "偏反",
-			ai_strategy_3: "偏主",
-			ai_strategy_4: "酱油",
-			ai_strategy_5: "天使",
-			ai_strategy_6: "仇主",
-			yexinbilu: "野心毕露",
-			stratagem_insight: "洞察",
-			sixiang_zhuque: "朱雀",
-			sixiang_xuanwu: "玄武",
-			sixiang_qinglong: "青龙",
-			sixiang_baihu: "白虎",
+			zhu: "Chủ",
+			zhong: "Trung",
+			mingzhong: "Trung",
+			nei: "Nội",
+			fan: "Phản",
+			commoner: "Dân",
+			cai: "Đoán",
+			cai2: "Đoán",
+			rZhu: "Chủ",
+			rZhong: "Trung",
+			rNei: "Nội",
+			rYe: "Dã",
+			rZhu2: "Chủ Soái",
+			rZhong2: "Tiền Phong",
+			rNei2: "Tế Tác",
+			rYe2: "Dã Tâm Gia",
+			bZhu: "Chủ",
+			bZhong: "Trung",
+			bNei: "Nội",
+			bYe: "Dã",
+			bZhu2: "Chủ Soái",
+			bZhong2: "Tiền Phong",
+			bNei2: "Tế Tác",
+			bYe2: "Dã Tâm Gia",
+			zhu2: "Chủ Công",
+			zhong2: "Trung Thần",
+			mingzhong2: "Minh Trung",
+			nei2: "Nội Gian",
+			fan2: "Phản Tặc",
+			commoner2: "Bình Dân",
+			random2: "Ngẫu Nhiên",
+			enemy: "Địch",
+			friend: "Hữu",
+			enemy2: "Địch Phương",
+			friend2: "Hữu Phương",
+			identity_junshi_bg: "Sư",
+			identity_dajiang_bg: "Tướng",
+			identity_zeishou_bg: "Thủ",
+			identity_junshi: "Quân Sư",
+			identity_dajiang: "Đại Tướng",
+			identity_zeishou: "Tặc Thủ",
+			ai_strategy_1: "Cân Bằng",
+			ai_strategy_2: "Thiên Phản",
+			ai_strategy_3: "Thiên Chủ",
+			ai_strategy_4: "Tương Du",
+			ai_strategy_5: "Thiên Sứ",
+			ai_strategy_6: "Cừu Chủ",
+			yexinbilu: "Dã Tâm Tất Lộ",
+			stratagem_insight: "Động Sát",
+			sixiang_zhuque: "Chu Tước",
+			sixiang_xuanwu: "Huyền Vũ",
+			sixiang_qinglong: "Thanh Long",
+			sixiang_baihu: "Bạch Hổ",
 		},
 		element: {
 			player: {
