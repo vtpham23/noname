@@ -2258,7 +2258,7 @@ export default () => {
 					}
 					ui.create.cheat = function () {
 						_status.createControl = ui.cheat2;
-						ui.cheat = ui.create.control("更换", function () {
+						ui.cheat = ui.create.control("Thay thế", function () {
 							if (ui.cheat2 && ui.cheat2.dialog == _status.event.dialog) {
 								return;
 							}
@@ -2322,7 +2322,7 @@ export default () => {
 					}
 
 					ui.create.cheat2 = function () {
-						ui.cheat2 = ui.create.control("自由选将", function () {
+						ui.cheat2 = ui.create.control("Tự do lựa chọn", function () {
 							if (this.dialog == _status.event.dialog) {
 								if (game.changeCoin) {
 									game.changeCoin(10);
@@ -3069,9 +3069,9 @@ export default () => {
 								player.node.identity.classList.remove("guessing");
 								if (identity) {
 									player.node.identity.firstChild.innerHTML = get.translation(identity + "_bg");
-									game.log(player, "的身份是", "#g" + get.translation(identity));
+									game.log(player, "Thân phận là", "#g" + get.translation(identity));
 								} else {
-									game.log(player, "的身份是", "#g" + get.translation(identity2 + "2"));
+									game.log(player, "Thân phận là", "#g" + get.translation(identity2 + "2"));
 								}
 							},
 							this,
@@ -4831,10 +4831,10 @@ export default () => {
 				},
 			},
 			identity_junshi: {
-				name: "军师",
+				name: "Quân sư",
 				mark: true,
 				intro: {
-					content: "准备阶段开始时，可以观看牌堆顶的三张牌，然后将这些牌以任意顺序置于牌堆顶或牌堆底",
+					content: "Khi bắt đầu giai đoạn chuẩn bị，bạn có thể xem ba lá bài đầu tiên của bộ bài, sau đó đặt những lá bài này lên trên hoặc xuống dưới bộ bài theo bất kỳ thứ tự nào.",
 				},
 				trigger: { player: "phaseZhunbeiBegin" },
 				silent: true,
@@ -4844,8 +4844,8 @@ export default () => {
 					var cards = get.cards(3);
 					game.cardsGotoOrdering(cards);
 					var next = player.chooseToMove();
-					next.set("list", [["牌堆顶", cards], ["牌堆底"]]);
-					next.set("prompt", "观星：点击或拖动将牌移动到牌堆顶或牌堆底");
+					next.set("list", [["Đỉnh chồng bài", cards], ["Đáy chồng bài"]]);
+					next.set("prompt", "Quan tinh: Nhấp chuột hoặc kéo để di chuyển một lá bài lên đầu hoặc cuối bộ bài.");
 					next.processAI = function (list) {
 						var cards = list[0][1],
 							player = _status.event.player;
@@ -4892,16 +4892,16 @@ export default () => {
 						return null;
 					});
 					player.popup(get.cnNumber(top.length) + "上" + get.cnNumber(bottom.length) + "下");
-					game.log(player, "将" + get.cnNumber(top.length) + "张牌置于牌堆顶");
+					game.log(player, "lấy" + get.cnNumber(top.length) + "lá bài lên đỉnh chồng bài");
 					game.updateRoundNumber();
 					game.delayx();
 				},
 			},
 			identity_dajiang: {
-				name: "大将",
+				name: "Đại tướng",
 				mark: true,
 				intro: {
-					content: "手牌上限+1",
+					content: "Giới hạn trữ bài +1",
 				},
 				mod: {
 					maxHandcard: function (player, num) {
@@ -4911,10 +4911,10 @@ export default () => {
 				charlotte: true,
 			},
 			identity_zeishou: {
-				name: "贼首",
+				name: "Tặc thủ",
 				mark: true,
 				intro: {
-					content: "手牌上限-1",
+					content: "Giới hạn trữ bài -1",
 				},
 				mod: {
 					maxHandcard: function (player, num) {
@@ -4927,7 +4927,7 @@ export default () => {
 				mark: true,
 				markimage: "image/mode/identity/mark/sixiang_zhuque.jpg",
 				intro: {
-					content: "出牌阶段，你可以弃置一张非基本牌，对一名角色造成1点伤害，以此法杀死反贼不执行奖惩。",
+					content: "Giai đoạn hành động, bạn có thể bỏ một lá bài phi cơ bản để gây 1 sát thương cho một người chơi. Nếu tiêu diệt phản tặc theo cách này sẽ không chấp hành thưởng phạt",
 				},
 				enable: "phaseUse",
 				filter(event, player) {
@@ -4940,7 +4940,7 @@ export default () => {
 				},
 				position: "he",
 				filterTarget: true,
-				prompt: "弃置一张非基本牌，对一名角色造成1点伤害",
+				prompt: "Bỏ 1 lá phi cơ bản, gây 1 sát thương cho 1 người chơi",
 				check(card) {
 					return 7 - get.value(card);
 				},
@@ -4989,7 +4989,7 @@ export default () => {
 				mark: true,
 				markimage: "image/mode/identity/mark/sixiang_xuanwu.jpg",
 				intro: {
-					content: "你可以将一张牌当【桃】使用。",
+					content: "Bạn có thể dùng 1 lá sử dụng như Đào。",
 				},
 				enable: "chooseToUse",
 				filter(event, player) {
@@ -5000,7 +5000,7 @@ export default () => {
 				viewAs: {
 					name: "tao",
 				},
-				prompt: "将一张牌当【桃】使用",
+				prompt: "Sử dụng 1 lá như Đào",
 				check(card) {
 					if (get.tag(card, "recover")) {
 						return 0;
@@ -5017,7 +5017,7 @@ export default () => {
 				mark: true,
 				markimage: "image/mode/identity/mark/sixiang_qinglong.jpg",
 				intro: {
-					content: "回合开始时，你可以弃置两张牌，弃置你判定区的【乐不思蜀】或【兵粮寸断】。",
+					content: "Khi bắt đầu lượt，bạn có thể bỏ 2 lá bài và bỏ đi Lạc bất tư thục và Binh lương thốn đoạn trong khu vực phán xét của bạn。",
 				},
 				trigger: {
 					player: "phaseBegin",
@@ -5031,15 +5031,15 @@ export default () => {
 				async cost(event, trigger, player) {
 					const lebu = player.hasJudge("lebu"),
 						bingliang = player.hasJudge("bingliang");
-					let info = "弃置两张牌，然后弃置判定区内的";
+					let info = "Bỏ 2 lá bài, sau đó bỏ ra khỏi khu vực phán xét ";
 					if (lebu) {
-						info += "【乐不思蜀】";
+						info += " Lạc bất tư thục ";
 					}
 					if (bingliang) {
 						if (lebu) {
-							info += "或";
+							info += "hoặc";
 						}
-						info += "【兵粮寸断】";
+						info += "Binh lương thốn đoạn";
 					}
 					event.result = await player
 						.chooseToDiscard("he", 2, get.prompt(event.skill), info)
@@ -5140,13 +5140,13 @@ export default () => {
 				mark: true,
 				markimage: "image/mode/identity/mark/sixiang_baihu.jpg",
 				intro: {
-					content: "你可以将一张牌当【杀】或【闪】使用或打出。",
+					content: "Bạn có thể dùng 1 lá bài xem như sử dụng hoặc đả xuất Sát hoặc Thiểm.",
 				},
 				enable: ["chooseToUse", "chooseToRespond"],
 				filterCard: true,
 				position: "hes",
 				viewAs: { name: "sha" },
-				prompt: "将一张牌当【杀】使用或打出",
+				prompt: "Dùng 1 lá bài xem như sử dụng hoặc đả xuất Sát ",
 				check(card) {
 					return 5 - get.value(card);
 				},
@@ -5169,7 +5169,7 @@ export default () => {
 						filterCard: true,
 						viewAs: { name: "shan" },
 						position: "hes",
-						prompt: "将一张牌当【闪】使用或打出",
+						prompt: "Dùng 1 lá bài xem như sử dụng hoặc đả xuất Sát",
 						check(card) {
 							return 5 - get.value(card);
 						},
