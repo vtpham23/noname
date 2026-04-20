@@ -4474,7 +4474,7 @@ game.import("card", function () {
 							evtmap = map._source;
 						}
 						if (evtmap.isJudge) {
-							prompt += get.translation(evtmap.card) + " của " + get.translation(evtmap.target) + "sắp" + (state > 0 ? "có" : "mất") + "hiệu lực. ";
+							prompt += get.translation(evtmap.card) + " của " + get.translation(evtmap.target) + " sắp " + (state > 0 ? "có" : "mất") + " hiệu lực. ";
 						} else {
 							
 							prompt += get.translation(evtmap.player) + " sử dụng " + get.translation(evtmap.card) ;
@@ -4488,7 +4488,7 @@ game.import("card", function () {
 								prompt += evtmap.target === evtmap.player ? " bản thân " : get.translation(evtmap.target);
 							}
 							
-							prompt += "sắp " + (state > 0 ? "có" : "mất") + " hiệu lực. ";
+							prompt += " sắp " + (state > 0 ? "có" : "mất") + " hiệu lực. ";
 						}
 						prompt += "Bạn có muốn dùng Vô Giải Khả Kích không?";
 						if (player.isUnderControl(true) && !_status.auto && !ui.tempnowuxie && map.tempnowuxie) {
