@@ -799,7 +799,7 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip2",
-				bingzhu: ["诸葛亮", "黄月英", "黄承彦"],
+				bingzhu: ["Gia Cát Lượng", "Hoàng Nguyệt Anh", "Hoàng Thừa Ngạn"],
 				ai: {
 					basic: {
 						equipValue: 7.5,
@@ -811,7 +811,7 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip3",
-				bingzhu: ["曹操"],
+				bingzhu: ["Tào Tháo"],
 				distance: { globalTo: 1 },
 				battleOfWancheng() {
 					// 宛城之战
@@ -834,42 +834,42 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip3",
-				bingzhu: ["刘备"],
+				bingzhu: ["Lưu Bị"],
 				distance: { globalTo: 1 },
 			},
 			zhuahuang: {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip3",
-				bingzhu: ["曹操"],
+				bingzhu: ["Tào Tháo"],
 				distance: { globalTo: 1 },
 			},
 			chitu: {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip4",
-				bingzhu: ["吕布", "关羽"],
+				bingzhu: ["Lữ Bố", "Quan Vũ"],
 				distance: { globalFrom: -1 },
 			},
 			dawan: {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip4",
-				bingzhu: ["曹操"],
+				bingzhu: ["Tào Tháo"],
 				distance: { globalFrom: -1 },
 			},
 			zixin: {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip4",
-				bingzhu: ["曹操"],
+				bingzhu: ["Tào Tháo"],
 				distance: { globalFrom: -1 },
 			},
 			zhuge: {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip1",
-				bingzhu: ["诸葛亮", "马钧"],
+				bingzhu: ["Gia Cát Lượng", "Mã Quân"],
 				ai: {
 					order() {
 						return get.order({ name: "sha" }) - 0.1;
@@ -914,7 +914,7 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip1",
-				bingzhu: ["刘备"],
+				bingzhu: ["Lưu Bị"],
 				distance: { attackFrom: -1 },
 				ai: {
 					basic: {
@@ -927,7 +927,7 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip1",
-				bingzhu: ["赵云", "曹操"],
+				bingzhu: ["Triệu Vân", "Tào Tháo"],
 				distance: { attackFrom: -1 },
 				ai: {
 					basic: {
@@ -940,7 +940,7 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip1",
-				bingzhu: ["关羽", "关兴", "张苞", "关银屏"],
+				bingzhu: ["Quan Vũ", "Quan Hưng", "Trương Bào", "Quan Ngân Bình"],
 				distance: { attackFrom: -2 },
 				ai: {
 					equipValue(card, player) {
@@ -956,7 +956,7 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip1",
-				bingzhu: ["张飞", "关兴", "张苞", "张星彩"],
+				bingzhu: ["Trương Phi", "Quan Hưng", "Trương Bào", "Trương Tinh Thái"],
 				distance: { attackFrom: -2 },
 				ai: {
 					equipValue(card, player) {
@@ -973,7 +973,7 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip1",
-				bingzhu: ["徐晃"],
+				bingzhu: ["Từ Hoảng"],
 				distance: { attackFrom: -2 },
 				ai: {
 					equipValue(card, player) {
@@ -990,7 +990,7 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip1",
-				bingzhu: ["吕布"],
+				bingzhu: ["Lữ Bố"],
 				distance: { attackFrom: -3 },
 				ai: {
 					basic: {
@@ -1003,7 +1003,7 @@ game.import("card", function () {
 				fullskin: true,
 				type: "equip",
 				subtype: "equip1",
-				bingzhu: ["吕布"],
+				bingzhu: ["Lữ Bố"],
 				distance: { attackFrom: -4 },
 				ai: {
 					basic: {
@@ -1028,19 +1028,19 @@ game.import("card", function () {
 					}
 					if (card.storage?.chooseDirection || get.is.versus()) {
 						player
-							.chooseControl("顺时针", "逆时针", function (event, player) {
+							.chooseControl("Thuận chiều kim đồng hồ", "Ngược chiều kim đồng hồ", function (event, player) {
 								if ((get.event().isVersus && player.next.side === player.side) || get.attitude(player, player.next) > get.attitude(player, player.previous)) {
-									return "逆时针";
+									return "Ngược chiều kim đồng hồ";
 								}
-								return "顺时针";
+								return "Thuận chiều kim đồng hồ";
 							})
-							.set("prompt", "选择" + get.translation(card) + "的结算方向")
+							.set("prompt", "Chọn hướng kết toán của" + get.translation(card) )
 							.set("isVersus", get.is.versus());
 					} else {
 						event.goto(2);
 					}
 					"step 1";
-					if (result && result.control === "顺时针") {
+					if (result && result.control === "Thuận chiều kim đồng hồ") {
 						var evt = event.getParent(),
 							sorter = _status.currentPhase || player;
 						evt.fixedSeat = true;
@@ -1073,7 +1073,7 @@ game.import("card", function () {
 						if (lose_list.length) {
 							lose_list.forEach(list => {
 								list[0].$throw(list[1]);
-								game.log(list[0], "将", list[1], "置于了处理区");
+								game.log(list[0], "Đưa", list[1], "vào khu xử lý");
 							});
 							game.loseAsync({
 								lose_list: lose_list,
@@ -1093,21 +1093,21 @@ game.import("card", function () {
 						cards = get.cards(num);
 						game.cardsGotoOrdering(cards).relatedEvent = event.getParent();
 					}
-					var dialog = ui.create.dialog("五谷丰登", cards, true);
+					var dialog = ui.create.dialog("Ngũ Cốc Phong Đăng", cards, true);
 					_status.dieClose.push(dialog);
 					dialog.videoId = lib.status.videoId++;
-					game.addVideo("cardDialog", null, ["五谷丰登", get.cardsInfo(cards), dialog.videoId]);
+					game.addVideo("cardDialog", null, ["Ngũ Cốc Phong Đăng", get.cardsInfo(cards), dialog.videoId]);
 					event.getParent().preResult = dialog.videoId;
 					game.broadcast(
 						function (cards, id) {
-							var dialog = ui.create.dialog("五谷丰登", cards, true);
+							var dialog = ui.create.dialog("Ngũ Cốc Phong Đăng", cards, true);
 							_status.dieClose.push(dialog);
 							dialog.videoId = id;
 						},
 						cards,
 						dialog.videoId
 					);
-					game.log(event.card, "亮出了", cards);
+					game.log(event.card, "Đã lật sáng", cards);
 				},
 				content() {
 					"step 0";
@@ -1169,7 +1169,7 @@ game.import("card", function () {
 							break;
 						}
 					}
-					var capt = get.translation(target) + "选择了" + get.translation(button.link);
+					var capt = get.translation(target) + " đã chọn" + get.translation(button.link);
 					if (card) {
 						target.gain(card, "visible");
 						target.$gain2(card);
@@ -1195,7 +1195,7 @@ game.import("card", function () {
 					}
 					dialog.content.firstChild.innerHTML = capt;
 					game.addVideo("dialogCapt", null, [dialog.videoId, dialog.content.firstChild.innerHTML]);
-					game.log(target, "选择了", button.link);
+					game.log(target, " đã chọn", button.link);
 					game.delay();
 				},
 				contentAfter() {
@@ -1344,7 +1344,7 @@ game.import("card", function () {
 								return lib.filter.cardRespondable(card, player);
 							});
 							if (event.shaRequired > 1) {
-								next.set("prompt2", "共需打出" + event.shaRequired + "张【杀】");
+								next.set("prompt2", "Cần đả xuất tổng cộng" + event.shaRequired + " lá Sát");
 							}
 							next.set("ai", function (card) {
 								if (get.event().toRespond) {
@@ -1754,7 +1754,7 @@ game.import("card", function () {
 								return lib.filter.cardRespondable(card, player);
 							});
 							if (event.shanRequired > 1) {
-								next.set("prompt2", "共需打出" + event.shanRequired + "张闪");
+								next.set("prompt2", "Cần đả xuất tổng cộng" + event.shanRequired + " lá Thiểm");
 							}
 							next.set("ai", function (card) {
 								if (get.event().toRespond) {
@@ -2235,7 +2235,7 @@ game.import("card", function () {
 									return lib.filter.cardRespondable(card, player);
 								});
 								if (event.shaRequired > 1) {
-									next.set("prompt2", "共需打出" + event.shaRequired + "张杀");
+									next.set("prompt2", "Cần đả xuất tổng cộng" + event.shaRequired + " lá Sát");
 								}
 								next.set("ai", function (card) {
 									if (get.event().toRespond) {
@@ -2765,23 +2765,23 @@ game.import("card", function () {
 							bool2 = target.countDiscardableCards(player, "e");
 						if (bool1 && bool2) {
 							player
-								.chooseControl("手牌区", "装备区")
+								.chooseControl("Khu vực bài trên tay", "Khu vực bài trang bị")
 								.set("ai", function () {
 									return Math.random() < 0.5 ? 1 : 0;
 								})
-								.set("prompt", "弃置" + get.translation(target) + "装备区的一张牌，或观看其手牌并弃置其中的一张牌。");
+								.set("prompt", "Hãy bỏ của" + get.translation(target) + "một lá bài trong khu vực trang bị, hoặc xem bài trên tay của họ rồi bỏ đi một lá bài trong đó");
 						} else {
-							event._result = { control: bool1 ? "手牌区" : "装备区" };
+							event._result = { control: bool1 ? "Khu vực bài trên tay" : "Khu vực bài trang bị" };
 						}
 					} else {
-						event._result = { control: "所有区域" };
+						event._result = { control: "Tất cả khu vực" };
 					}
 					"step 1";
 					let pos,
 						vis = "visible";
-					if (result.control === "手牌区") {
+					if (result.control === "Khu vực bài trên tay") {
 						pos = "h";
-					} else if (result.control === "装备区") {
+					} else if (result.control === "Khu vực bài trang bị") {
 						pos = "e";
 					} else {
 						pos = "hej";
@@ -3063,7 +3063,7 @@ game.import("card", function () {
 				type: "trick",
 				enable: true,
 				singleCard: true,
-				targetprompt: ["被借刀", "出杀目标"],
+				targetprompt: ["Bị tá đao", "Mục tiêu ra Sát"],
 				complexSelect: true,
 				complexTarget: true,
 				multicheck() {
@@ -3096,7 +3096,7 @@ game.import("card", function () {
 						event.directfalse = true;
 					} else {
 						target
-							.chooseToUse("对" + get.translation(event.addedTarget) + "使用一张杀，或令" + get.translation(player) + "获得你的武器牌", function (card, player) {
+							.chooseToUse("Sử dụng 1 lá Sát đối với " + get.translation(event.addedTarget) + "hoặc lệnh" + get.translation(player) + "nhận bài vũ khí của bạn", function (card, player) {
 								if (get.name(card) !== "sha") {
 									return false;
 								}
@@ -3232,10 +3232,10 @@ game.import("card", function () {
 						var trigger = event.getParent(2)._trigger;
 						if (trigger.name !== "phaseJudge" && trigger.card.name !== "wuxie" && trigger.targets.length > 1) {
 							player
-								.chooseControl("对单体使用", "对势力使用")
-								.set("prompt", "请选择" + get.translation(card) + "的使用方式")
+								.chooseControl("Dùng cho đơn thể", "")
+								.set("prompt", "Hãy chọn cách sử dụng của " + get.translation(card))
 								.set("ai", function () {
-									return "对势力使用";
+									return "Dùng cho thế lực";
 								});
 						} else {
 							event.finish();
@@ -3244,8 +3244,8 @@ game.import("card", function () {
 						event.finish();
 					}
 					"step 1";
-					if (result.control === "对势力使用") {
-						player.chat("对势力使用");
+					if (result.control === "Dùng cho thế lực") {
+						player.chat("Dùng cho thế lực");
 						event.getParent().guowuxie = true;
 					}
 				},
@@ -3881,7 +3881,7 @@ game.import("card", function () {
 					}
 				},
 				marktext: "※",
-				intro: { content: "当前防具技能已失效" },
+				intro: { content: "Kỹ năng phòng cụ hiện tại đã mất hiệu lực" },
 			},
 			qinglong_skill: {
 				audio: true,
@@ -4201,7 +4201,7 @@ game.import("card", function () {
 					var att = get.attitude(player, trigger.player) <= 0;
 					var next = player.chooseButton();
 					next.set("att", att);
-					next.set("createDialog", ["是否发动【麒麟弓】，弃置" + get.translation(trigger.player) + "的一张坐骑牌？", trigger.player.getCards("e", { subtype: ["equip3", "equip4", "equip6"] })]);
+					next.set("createDialog", ["Có phát động Kì Lân Cung，bỏ đi của" + get.translation(trigger.player) + "1 lá Toạ Kỵ？", trigger.player.getCards("e", { subtype: ["equip3", "equip4", "equip6"] })]);
 					next.set("ai", function (button) {
 						if (_status.event.att) {
 							return get.buttonValue(button);
@@ -4368,7 +4368,7 @@ game.import("card", function () {
 						eff * event.num
 					);
 				},
-				prompt: "是否发动〖绝影〗，将装备区内的【绝影】置入弃牌堆并防止此伤害？",
+				prompt: "Có phát động Tuyệt Ảnh, lấy 1 lá Tuyệt Ảnh trong khu trang bị đặt vào chồng bài bỏ và ngăn chặn sát thương này?",
 				async content(event, trigger, player) {
 					var e3 = player.getCards("e", card => {
 						return get.name(card, player) === "jueying";
@@ -4474,28 +4474,29 @@ game.import("card", function () {
 							evtmap = map._source;
 						}
 						if (evtmap.isJudge) {
-							prompt += get.translation(evtmap.target) + "的" + get.translation(evtmap.card) + "即将" + (state > 0 ? "生" : "失") + "效。";
+							prompt += get.translation(evtmap.card) + " của " + get.translation(evtmap.target) + "sắp" + (state > 0 ? "có" : "mất") + "hiệu lực. ";
 						} else {
-							prompt += get.translation(evtmap.player);
+							
+							prompt += get.translation(evtmap.player) + " sử dụng " + get.translation(evtmap.card) ;
 							if (evtmap.multitarget) {
 								if (evtmap.targets.length) {
-									prompt += "对";
+									prompt += " đối với ";
 									prompt += get.translation(evtmap.targets);
 								}
 							} else if (evtmap.target) {
-								prompt += "对";
-								prompt += evtmap.target === evtmap.player ? "自己" : get.translation(evtmap.target);
+								prompt += " đối với ";
+								prompt += evtmap.target === evtmap.player ? " bản thân " : get.translation(evtmap.target);
 							}
-							prompt += "使用的" + get.translation(evtmap.card);
-							prompt += "即将" + (state > 0 ? "生" : "失") + "效。";
+							
+							prompt += "sắp " + (state > 0 ? "có" : "mất") + " hiệu lực. ";
 						}
-						prompt += "是否使用【无懈可击】？";
+						prompt += "Bạn có muốn dùng Vô Giải Khả Kích không?";
 						if (player.isUnderControl(true) && !_status.auto && !ui.tempnowuxie && map.tempnowuxie) {
 							var translation = get.translation(map.card.name);
 							if (translation.length >= 4) {
 								translation = lib.translate[map.card.name + "_ab"] || translation.slice(0, 2);
 							}
-							ui.tempnowuxie = ui.create.control("不无懈" + translation, ui.click.tempnowuxie, "stayleft");
+							ui.tempnowuxie = ui.create.control("Không Vô giải" + translation, ui.click.tempnowuxie, "stayleft");
 							ui.tempnowuxie._origin = map.id2;
 						}
 						var next = player.chooseToUse({
@@ -5175,75 +5176,75 @@ game.import("card", function () {
 			huosha: "Hoả Sát",
 			leisha: "Lôi Sát",
 			icesha: "Băng Sát",
-			kamisha: "神杀",
-			cisha: "刺杀",
+			kamisha: "Thần Sát",
+			cisha: "Thích sát",
 			shan: "Thiểm",
 			tao: "Đào",
 			bagua: "Bát Quái Trận",
-			bagua_bg: "卦",
-			bagua_skill: "八卦阵",
-			jueying: "绝影",
-			jueying_wancheng: "绝影",
-			dilu: "的卢",
-			zhuahuang: "爪黄飞电",
-			jueying_bg: "+马",
-			dilu_bg: "+马",
-			zhuahuang_bg: "+马",
-			chitu: "赤兔",
-			chitu_bg: "-马",
-			dawan: "大宛",
-			dawan_bg: "-马",
-			zixin: "紫骍",
-			zixin_bg: "-马",
+			bagua_bg: "Bát quái",
+			bagua_skill: "Bát quái",
+			jueying: "Tuyệt Ảnh",
+			jueying_wancheng: "Tuyệt Ảnh",
+			dilu: "Đích Lô",
+			zhuahuang: "Trảo Hoàng Phi Điện",
+			jueying_bg: "Ngựa cộng",
+			dilu_bg: "Ngựa cộng",
+			zhuahuang_bg: "Ngựa cộng",
+			chitu: "Xích thố",
+			chitu_bg: "Ngựa trừ",
+			dawan: "Đại Uyên",
+			dawan_bg: "Ngựa trừ",
+			zixin: "Tử Tinh",
+			zixin_bg: "Ngựa trừ",
 			zhuge: "Gia Cát Liên Nỏ",
 			cixiong: "Thư Hùng Song Cổ Kiếm",
-			zhuge_bg: "弩",
-			cixiong_bg: "双",
+			zhuge_bg: "Nỏ",
+			cixiong_bg: "Song",
 			qinggang: "Thanh Cang Kiếm",
 			qinglong: "Thanh Long Yển Nguyệt Đao",
 			zhangba: "Trượng Bát Xà Mâu",
-			qinglong_bg: "偃",
-			zhangba_bg: "蛇",
+			qinglong_bg: "Thanh Long",
+			zhangba_bg: "Trượng Bát",
 			guanshi: "Quán Thạch Phủ",
 			fangtian: "Phương Thiên Hoạ Kích",
 			qilin: "Kì Lân Cung",
 			qilin_bg: "弓",
-			zhuge_skill: "诸葛连弩",
-			cixiong_skill: "雌雄双股剑",
-			qinggang_skill: "青釭剑",
-			qinglong_skill: "青龙偃月刀",
-			qinglong_guozhan: "Thanh Long Yển Nguyệt Đao",
-			zhangba_skill: "丈八蛇矛",
-			guanshi_skill: "贯石斧",
-			fangtian_skill: "方天画戟",
-			qilin_skill: "麒麟弓",
+			zhuge_skill: "Nỏ",
+			cixiong_skill: "Kiếm giới",
+			qinggang_skill: "Thanh cang",
+			qinglong_skill: "Thanh long",
+			qinglong_guozhan: "Thanh long",
+			zhangba_skill: "Trượng bát",
+			guanshi_skill: "Búa",
+			fangtian_skill: "Phương thiên",
+			qilin_skill: "Cung",
 			wugu: "Ngũ Cốc Phong Đăng",
 			taoyuan: "Đào Viên Kết Nghĩa",
 			nanman: "Nam Man Nhập Xâm",
 			wanjian: "Vạn Tiễn Tề Phát",
 			wuzhong: "Vô Trung Sinh Hữu",
 			juedou: "Quyết Đấu",
-			wugu_bg: "谷",
-			taoyuan_bg: "园",
-			nanman_bg: "蛮",
-			wanjian_bg: "箭",
-			wuzhong_bg: "生",
-			juedou_bg: "斗",
+			wugu_bg: "Ngũ cốc",
+			taoyuan_bg: "Đào viên",
+			nanman_bg: "Nam man",
+			wanjian_bg: "Vạn Tiễn",
+			wuzhong_bg: "Vô trung",
+			juedou_bg: "Quyết đấu",
 			shunshou: "Thuận Thủ Khiên Dương",
 			guohe: "Quá Hà Sách Kiều",
-			guohe_bg: "拆",
+			guohe_bg: "Quá hà",
 			jiedao: "Tà Đao Sát Nhân",
 			wuxie: "Vô Giải Khả Kích",
-			wuxie_bg: "懈",
+			wuxie_bg: "Vô giải",
 			lebu: "Lạc Bất Tư Thục",
 			shandian: "Thiểm Điện",
-			shandian_bg: "电",
+			shandian_bg: "Thiểm điện",
 			hanbing: "Hàn Băng Kiếm",
 			renwang: "Nhân Vương Thuẫn",
-			hanbing_bg: "冰",
-			renwang_bg: "盾",
-			hanbing_skill: "寒冰剑",
-			renwang_skill: "仁王盾",
+			hanbing_bg: "Hàn băng",
+			renwang_bg: "Giáp đen",
+			hanbing_skill: "Hàn băng",
+			renwang_skill: "Giáp đen",
 			hanbing_info: "Khi bạn do thực thi hiệu quả của 【Sát】 mà gây sát thương, nếu nhân vật mục tiêu có bài có thể bị vứt bỏ, thì bạn có thể ngăn chặn sát thương này, sau đó lần lượt vứt bỏ hai lá bài của nhân vật mục tiêu.",
 			hanbing_skill_info: "Khi bạn do thực thi hiệu quả của 【Sát】 mà gây sát thương, nếu nhân vật mục tiêu có bài có thể bị vứt bỏ, thì bạn có thể ngăn chặn sát thương này, sau đó lần lượt vứt bỏ hai lá bài của nhân vật mục tiêu.",
 			renwang_info: "Tỏa định kỹ, 【Sát】 màu đen đối với bạn vô hiệu.",
