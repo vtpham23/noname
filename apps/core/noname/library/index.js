@@ -2110,9 +2110,9 @@ class Library {
                     var str;
                     if (this.classList.contains("active")) {
                       if (link.startsWith("custom_") || link.startsWith("cdv_")) {
-                        str = "删除";
+                        str = "Xoá";
                       } else {
-                        str = "隐藏";
+                        str = "Ẩn";
                       }
                     } else {
                       str = item[link];
@@ -2122,7 +2122,7 @@ class Library {
                 }
               }
             };
-            ui.create.div(".menubutton", "编辑背景", node, editbg);
+            ui.create.div(".menubutton", "Chỉnh sửa hình nền", node, editbg);
           },
           visualMenu: function(node, link, name2, config) {
             node.className = "button character";
@@ -2159,12 +2159,12 @@ class Library {
           onclick(background, node) {
             if (node && node.firstChild) {
               var menu = node.parentNode;
-              if (node.firstChild.innerHTML == get.verticalStr("隐藏")) {
+              if (node.firstChild.innerHTML == get.verticalStr("Ẩn")) {
                 menu.parentNode.noclose = true;
                 node.remove();
                 menu.updateBr();
                 if (!lib.config.prompt_hidebg) {
-                  alert("隐藏的背景可通过选项-其它-重置隐藏内容恢复");
+                  alert("Bạn có thể khôi phục hình nền ẩn thông qua Tùy chọn - Khác - Đặt lại nội dung ẩn.");
                   game.saveConfig("prompt_hidebg", true);
                 }
                 lib.config.hiddenBackgroundPack.add(background);
@@ -2179,7 +2179,7 @@ class Library {
                 }
               } else if (node.firstChild.innerHTML == get.verticalStr("删除")) {
                 menu.parentNode.noclose = true;
-                if (confirm("是否删除此背景？（此操作不可撤销）")) {
+                if (confirm("Bạn có muốn xóa hình nền này không? (Thao tác này không thể đảo ngược)")) {
                   node.remove();
                   menu.updateBr();
                   lib.config.customBackgroundPack.remove(background);
@@ -2206,7 +2206,7 @@ class Library {
           }
         },
         image_background_random: {
-          name: "随机背景",
+          name: "Random hình nền",
           init: false,
           onclick(bool) {
             game.saveConfig("image_background_random", bool);
@@ -2214,7 +2214,7 @@ class Library {
           }
         },
         image_background_blur: {
-          name: "背景模糊",
+          name: "Làm mờ hình nền",
           init: false,
           onclick(bool) {
             game.saveConfig("image_background_blur", bool);
@@ -2230,7 +2230,7 @@ class Library {
           }
         },
         phonelayout: {
-          name: "触屏布局",
+          name: "Bố cục điện thoại",
           init: false,
           onclick(bool) {
             if (get.is.nomenu("phonelayout", bool)) {
@@ -2247,9 +2247,9 @@ class Library {
           }
         },
         change_skin: {
-          name: "开启换肤",
+          name: "Thay đổi skin",
           init: true,
-          intro: "在武将资料卡界面换肤，皮肤添加方法查看docs/skin-guide.md文件",
+          intro: "Để thay đổi giao diện trong thẻ hồ sơ tướng, hãy xem hướng dẫn cách thêm giao diện trong docs/skin-guide.md",
           onclick(item) {
             game.saveConfig("change_skin", item);
             if (item == false) {
@@ -2261,16 +2261,16 @@ class Library {
           }
         },
         change_skin_auto: {
-          name: "自动换肤",
+          name: "Tự động thay skin",
           init: "60000",
           item: {
-            off: "关闭",
-            3e4: "半分钟",
-            6e4: "一分钟",
-            12e4: "两分钟",
-            3e5: "五分钟"
+            off: "Đóng",
+            3e4: "30 giây",
+            6e4: "1 phút",
+            12e4: "2 phút",
+            3e5: "5 phút"
           },
-          intro: "游戏每进行一段时间自动为一个随机角色更换皮肤",
+          intro: "Trò chơi tự động thay đổi ngoại hình của một nhân vật ngẫu nhiên sau mỗi khoảng thời gian nhất định.",
           onclick(item) {
             game.saveConfig("change_skin_auto", item);
             clearTimeout(_status.skintimeout);
@@ -2280,17 +2280,17 @@ class Library {
           }
         },
         card_style: {
-          name: "卡牌样式",
+          name: "Mặt trước lá bài",
           init: "simple",
-          intro: "设置正面朝上的卡牌的样式",
+          intro: "Thiết lập mặt trước lá bài",
           item: {
-            wood: "木纹",
-            music: "音乐",
-            simple: "原版",
-            ol: "手杀",
+            wood: "Mộc vân",
+            music: "Am nhạc",
+            simple: "Nguyên bản",
+            ol: "Thủ sát",
             // new:'新版',
-            custom: "自定",
-            default: "默认"
+            custom: "Tự định",
+            default: "Mặc định"
           },
           visualBar: function(node, item, create, switcher) {
             if (node.created) {
@@ -2307,7 +2307,7 @@ class Library {
             }
             node.created = true;
             var deletepic;
-            ui.create.filediv(".menubutton", "添加图片", node, function(file) {
+            ui.create.filediv(".menubutton", "Thêm hình ảnh", node, function(file) {
               if (file) {
                 game.putDB("image", "card_style", file, function() {
                   game.getDB("image", "card_style", function(fileToLoad) {
@@ -2326,15 +2326,15 @@ class Library {
                 });
               }
             }).inputNode.accept = "image*";
-            deletepic = ui.create.div(".menubutton.deletebutton", "删除图片", node, function() {
-              if (confirm("确定删除自定义图片？（此操作不可撤销）")) {
+            deletepic = ui.create.div(".menubutton.deletebutton", "Xoá hình ảnh", node, function() {
+              if (confirm("Bạn có chắc chắn muốn xóa hình ảnh tùy chỉnh không? (Thao tác này không thể đảo ngược)")) {
                 game.deleteDB("image", "card_style");
                 button.style.backgroundImage = "none";
                 button.className = "button character dashedmenubutton";
                 node.classList.remove("showdelete");
                 if (lib.config.card_style == "custom") {
                   lib.configMenu.appearence.config.card_style.onclick("default");
-                  switcher.lastChild.innerHTML = "默认";
+                  switcher.lastChild.innerHTML = "Mặc định";
                 }
                 button.classList.add("transparent");
               }
@@ -2419,19 +2419,19 @@ class Library {
           unfrequent: true
         },
         cardback_style: {
-          name: "卡背样式",
-          intro: "设置背面朝上的卡牌的样式",
+          name: "Mặt sau lá bài",
+          intro: "Thiết lập hình thức mặt sau lá bài",
           init: "official",
           item: {
             // wood:'木纹',
             // music:'音乐',
-            official: "原版",
+            official: "Nguyên bản",
             // new:'新版',
-            feicheng: "废城",
-            liusha: "流沙",
-            ol: "手杀",
-            custom: "自定",
-            default: "默认"
+            feicheng: "Phi thành",
+            liusha: "Lưu sa",
+            ol: "Thủ sát",
+            custom: "Tự định",
+            default: "Mặc định"
           },
           visualBar(node, item, create, switcher) {
             if (node.created) {
@@ -2447,7 +2447,7 @@ class Library {
               return;
             }
             node.created = true;
-            ui.create.filediv(".menubutton", "添加图片", node, function(file) {
+            ui.create.filediv(".menubutton", "Thêm hình ảnh", node, function(file) {
               if (file) {
                 game.putDB("image", "cardback_style", file, function() {
                   game.getDB("image", "cardback_style", function(fileToLoad) {
@@ -2466,15 +2466,15 @@ class Library {
                 });
               }
             }).inputNode.accept = "image/*";
-            ui.create.filediv(".menubutton.deletebutton.addbutton", "添加翻转图片", node, function(file) {
+            ui.create.filediv(".menubutton.deletebutton.addbutton", "Thêm ảnh", node, function(file) {
               if (file) {
                 game.putDB("image", "cardback_style2", file, function() {
                   node.classList.add("hideadd");
                 });
               }
             }).inputNode.accept = "image/*";
-            ui.create.div(".menubutton.deletebutton", "删除图片", node, function() {
-              if (confirm("确定删除自定义图片？（此操作不可撤销）")) {
+            ui.create.div(".menubutton.deletebutton", "Xoá hình ảnh", node, function() {
+              if (confirm("Bạn có chắc chắn muốn xóa hình ảnh tùy chỉnh không? (Thao tác này không thể đảo ngược）")) {
                 game.deleteDB("image", "cardback_style");
                 game.deleteDB("image", "cardback_style2");
                 button.style.backgroundImage = "none";
@@ -2629,18 +2629,18 @@ class Library {
           unfrequent: true
         },
         hp_style: {
-          name: "体力条样式",
+          name: "Thanh máu",
           init: "default",
           item: {
-            default: "默认",
+            default: "Mặc định",
             // official:'勾玉',
-            emotion: "表情",
-            glass: "勾玉",
-            round: "国战",
-            ol: "手杀",
-            xinglass: "双鱼",
+            emotion: "Cảm xúc",
+            glass: "Phẩy nước",
+            round: "Quốc chiến",
+            ol: "Thủ sát",
+            xinglass: "Song ngư",
             xinround: "OL",
-            custom: "自定"
+            custom: "Tự định"
           },
           visualBar: function(node, item, create, switcher) {
             if (node.created) {
@@ -2657,7 +2657,7 @@ class Library {
             }
             node.created = true;
             var deletepic;
-            ui.create.filediv(".menubutton.addbutton", "添加图片", node, function(file) {
+            ui.create.filediv(".menubutton.addbutton", "Thêm hình ảnh", node, function(file) {
               if (file && node.currentDB) {
                 game.putDB("image", "hp_style" + node.currentDB, file, function() {
                   game.getDB("image", "hp_style" + node.currentDB, function(fileToLoad) {
@@ -2682,8 +2682,8 @@ class Library {
                 });
               }
             }).inputNode.accept = "image/*";
-            deletepic = ui.create.div(".menubutton.deletebutton", "删除图片", node, function() {
-              if (confirm("确定删除自定义图片？（此操作不可撤销）")) {
+            deletepic = ui.create.div(".menubutton.deletebutton", "Xoá hình ảnh", node, function() {
+              if (confirm("Bạn có chắc chắn muốn xóa hình ảnh tùy chỉnh không? (Thao tác này không thể đảo ngược)")) {
                 game.deleteDB("image", "hp_style1");
                 game.deleteDB("image", "hp_style2");
                 game.deleteDB("image", "hp_style3");
@@ -2832,15 +2832,15 @@ class Library {
           unfrequent: true
         },
         player_style: {
-          name: "角色背景",
+          name: "Hình nền tướng",
           init: "default",
-          intro: "设置角色的背景图片",
+          intro: "Thiết lập ảnh nền cho nhân vật",
           item: {
-            wood: "木纹",
-            music: "音乐",
-            simple: "简约",
-            custom: "自定",
-            default: "默认"
+            wood: "Mộc vân",
+            music: "Âm nhạc",
+            simple: "Giản lược",
+            custom: "Tự định",
+            default: "Mặc định"
           },
           visualBar: function(node, item, create, switcher) {
             if (node.created) {
@@ -2857,7 +2857,7 @@ class Library {
             }
             node.created = true;
             var deletepic;
-            ui.create.filediv(".menubutton", "添加图片", node, function(file) {
+            ui.create.filediv(".menubutton", "Thêm hình ảnh", node, function(file) {
               if (file) {
                 game.putDB("image", "player_style", file, function() {
                   game.getDB("image", "player_style", function(fileToLoad) {
@@ -2877,8 +2877,8 @@ class Library {
                 });
               }
             }).inputNode.accept = "image/*";
-            deletepic = ui.create.div(".menubutton.deletebutton", "删除图片", node, function() {
-              if (confirm("确定删除自定义图片？（此操作不可撤销）")) {
+            deletepic = ui.create.div(".menubutton.deletebutton", "Xoá hình ảnh", node, function() {
+              if (confirm("Bạn có chắc chắn muốn xóa hình ảnh tùy chỉnh không? (Thao tác này không thể đảo ngược)")) {
                 game.deleteDB("image", "player_style");
                 button.style.backgroundImage = "none";
                 button.className = "button character dashedmenubutton";
@@ -2971,27 +2971,27 @@ class Library {
           unfrequent: true
         },
         zhishixian: {
-          name: "指示线",
-          intro: "设置卡牌、技能的指示特效",
+          name: "Đường chỉ báo",
+          intro: "Thiết lập hiệu ứng chỉ báo kỹ năng, lá bài",
           init: "Jinlong",
           unfrequent: true,
           item: {
-            default: "默认",
-            Mohua: "水墨",
-            Xiangong: "先攻",
-            Zhuzhang: "竹杖",
+            default: "Mặc định",
+            Mohua: "Thuỷ mặc",
+            Xiangong: "Tiên công",
+            Zhuzhang: "Trúc trượng",
             // Shuimo: "幻彩",
-            Anhei: "黑暗",
-            Mozhua: "魔爪",
-            Shenjian: "神剑",
-            Yujian: "御剑",
-            Jianfeng: "剑锋",
-            Jinjian: "金箭",
-            Jinlong: "金龙",
-            Yuexian: "乐仙",
-            Xingdie: "星蝶",
-            Luoying: "落英",
-            Shezhang: "蛇杖"
+            Anhei: "Hắc ám",
+            Mozhua: "Ma trảo",
+            Shenjian: "Thần kiếm",
+            Yujian: "Ngự kiếm",
+            Jianfeng: "Kiếm phong",
+            Jinjian: "Kim tiễn",
+            Jinlong: "Kim long",
+            Yuexian: "Lạc tiên",
+            Xingdie: "Tinh điệp",
+            Luoying: "Lạc anh",
+            Shezhang: "Xà trượng"
           },
           onclick(items) {
             game.saveConfig("zhishixian", items);
@@ -3003,19 +3003,19 @@ class Library {
           }
         },
         border_style: {
-          name: "角色边框",
+          name: "Viền nhân vật",
           init: "default",
-          intro: "设置角色边框的样式，当设为自动时，样式将随着一局游戏中伤害或击杀的数量自动改变",
+          intro: "Bạn có thể thiết lập kiểu viền cho nhân vật. Khi đặt ở chế độ tự động, kiểu viền sẽ tự động thay đổi dựa trên số sát thương hoặc số lần tiêu diệt trong trận đấu.",
           item: {
-            gold: "金框",
-            silver: "银框",
-            bronze: "铜框",
-            dragon_gold: "金龙",
-            dragon_silver: "银龙",
-            dragon_bronze: "玉龙",
-            custom: "自定",
-            auto: "自动",
-            default: "默认"
+            gold: "Kim khuông",
+            silver: "Ngân khuông",
+            bronze: "Đồng khuông",
+            dragon_gold: "Kim long",
+            dragon_silver: "Ngân long",
+            dragon_bronze: "Ngọc long",
+            custom: "Tự định",
+            auto: "Tự động",
+            default: "Mặc định"
           },
           visualBar: function(node, item, create, switcher) {
             if (node.created) {
@@ -3032,7 +3032,7 @@ class Library {
             }
             node.created = true;
             var deletepic;
-            ui.create.filediv(".menubutton", "添加图片", node, function(file) {
+            ui.create.filediv(".menubutton", "Thêm hình ảnh", node, function(file) {
               if (file) {
                 game.putDB("image", "border_style", file, function() {
                   game.getDB("image", "border_style", function(fileToLoad) {
@@ -3052,8 +3052,8 @@ class Library {
                 });
               }
             }).inputNode.accept = "image/*";
-            deletepic = ui.create.div(".menubutton.deletebutton", "删除图片", node, function() {
-              if (confirm("确定删除自定义图片？（此操作不可撤销）")) {
+            deletepic = ui.create.div(".menubutton.deletebutton", "Xoá hình ảnh", node, function() {
+              if (confirm("Bạn có chắc chắn muốn xóa hình ảnh tùy chỉnh không? (Thao tác này không thể đảo ngược)")) {
                 game.deleteDB("image", "border_style");
                 button.style.backgroundImage = "none";
                 button.className = "button character dashedmenubutton";
@@ -3154,23 +3154,23 @@ class Library {
           unfrequent: true
         },
         autoborder_count: {
-          name: "边框升级方式",
-          intro: "<strong>击杀</strong> 每击杀一人，边框提升两级<br><strong>伤害</strong> 每造成2点伤害，边框提升一级<br><strong>混合</strong> 击杀量决定边框颜色，伤害量决定边框装饰",
+          name: "Phương pháp nâng viền",
+          intro: "<strong>Tiêu diệt</strong> Mỗi lần tiêu diệt một nhân vật, nâng viền 2 cấp<br><strong>Sát thương</strong> Mỗi lần tạo 2 sát thương, nâng viền 1 cấp<br><strong>Hỗn hợp</strong> Số lượng mạng hạ gục quyết định màu viền, và lượng sát thương gây ra quyết định kiểu trang trí viền.",
           init: "kill",
           item: {
-            kill: "击杀",
-            damage: "伤害",
-            mix: "混合"
+            kill: "Tiêu diệt",
+            damage: "Sát thương",
+            mix: "Hỗn hợp"
           },
           unfrequent: true
         },
         autoborder_start: {
-          name: "基础边框颜色",
+          name: "Viền tự động ban đầu",
           init: "bronze",
           item: {
-            bronze: "铜",
-            silver: "银",
-            gold: "金"
+            bronze: "Đồng",
+            silver: "Bạc",
+            gold: "Vàng"
           },
           unfrequent: true
         },
@@ -3255,8 +3255,8 @@ class Library {
                 });
               }
             }).inputNode.accept = "image/*";
-            deletepic = ui.create.div(".menubutton.deletebutton", "删除图片", node, function() {
-              if (confirm("确定删除自定义图片？（此操作不可撤销）")) {
+            deletepic = ui.create.div(".menubutton.deletebutton", "Xoá hình ảnh", node, function() {
+              if (confirm("Bạn có chắc chắn muốn xóa hình ảnh tùy chỉnh không? (Thao tác này không thể đảo ngược)")) {
                 game.deleteDB("image", "menu_style");
                 button.style.backgroundImage = "none";
                 button.style.backgroundSize = "auto";
@@ -3395,7 +3395,7 @@ class Library {
               }
             }).inputNode.accept = "image/*";
             deletepic = ui.create.div(".menubutton.deletebutton", "删除图片", node, function() {
-              if (confirm("确定删除自定义图片？（此操作不可撤销）")) {
+              if (confirm("Bạn có chắc chắn muốn xóa hình ảnh tùy chỉnh không? (Thao tác này không thể đảo ngược)")) {
                 game.deleteDB("image", "control_style");
                 button.style.backgroundImage = "none";
                 button.className = "button character controlbutton dashedmenubutton";
