@@ -1122,7 +1122,7 @@ export default () => {
 					var list = [];
 					for (var i = 0; i < players.length; i++) {
 						var group = event[players[i].identity];
-						var str = "选择角色";
+						var str = "Lựa chọn võ tướng";
 						var list2 = event.map[group].randomGets(4);
 						if (event.map_zhu[group]) {
 							list2.addArray(event.map_zhu[group].randomGets(2));
@@ -1171,7 +1171,7 @@ export default () => {
 					players.removeArray([game.rZhu, game.bZhu]);
 					for (var i = 0; i < players.length; i++) {
 						var group = event[players[i].identity.slice(0, 1) + "Zhu"];
-						var str = "选择角色";
+						var str = "Lựa chọn võ tướng";
 						var list2 = event.map[group].randomRemove(event.mapNum[group]);
 						event.map[players[i].playerid] = list2;
 						list.push([players[i], [str, [list2, "character"]], true]);
@@ -1496,7 +1496,7 @@ export default () => {
 					var num = Math.floor(event.list.length / (game.players.length - 1));
 					for (var i = 0; i < game.players.length; i++) {
 						let num2 = lib.configOL["choice_" + game.players[i].identity];
-						var str = "选择角色";
+						var str = "Lựa chọn võ tướng";
 						list.push([game.players[i], [str, [event.list.randomRemove(Math.min(num, num2)), "characterx"]], selectButton, true]);
 					}
 					game.me.chooseButtonOL(list, function (player, result) {
@@ -1796,7 +1796,7 @@ export default () => {
 					}
 					var stratagemMode = event.stratagemMode;
 					var addSetting = function (dialog) {
-						dialog.add("选择身份").classList.add("add-setting");
+						dialog.add("Lựa chọn thân phận").classList.add("add-setting");
 						var table = document.createElement("div");
 						table.classList.add("add-setting");
 						table.style.margin = "0";
@@ -1918,7 +1918,7 @@ export default () => {
 						}
 						dialog.content.appendChild(table);
 
-						dialog.add("选择座位").classList.add("add-setting");
+						dialog.add("Lựa chọn vị trí").classList.add("add-setting");
 						var seats = document.createElement("div");
 						seats.classList.add("add-setting");
 						seats.style.margin = "0";
@@ -2228,7 +2228,7 @@ export default () => {
 						event.swapnodialog(dialog, list);
 						delete event.swapnodialog;
 					} else {
-						var str = "选择角色";
+						var str = "Lựa chọn võ tướng";
 						if (_status.brawl && _status.brawl.chooseCharacterStr) {
 							str = _status.brawl.chooseCharacterStr;
 						}
@@ -2240,10 +2240,10 @@ export default () => {
 						}
 					}
 					if (game.me.special_identity) {
-						dialog.setCaption("选择角色（" + get.translation(game.me.special_identity) + "）");
+						dialog.setCaption("Lựa chọn võ tướng（" + get.translation(game.me.special_identity) + "）");
 						game.me.node.identity.firstChild.innerHTML = get.translation(game.me.special_identity + "_bg");
 					} else {
-						dialog.setCaption("选择角色");
+						dialog.setCaption("Lựa chọn võ tướng");
 						game.me.setIdentity();
 					}
 					if (!event.chosen.length) {
@@ -2662,7 +2662,7 @@ export default () => {
 					}
 					var next = game.zhu.chooseButton(true);
 					next.set("selectButton", lib.configOL.double_character ? 2 : 1);
-					next.set("createDialog", ["选择角色", [list, "characterx"]]);
+					next.set("createDialog", ["Lựa chọn võ tướng", [list, "characterx"]]);
 					next.set("ai", function (button) {
 						return Math.random();
 					});
@@ -2736,7 +2736,7 @@ export default () => {
 							} else {
 								num2 = lib.configOL["choice_" + identity];
 							}
-							let str = "选择角色";
+							let str = "Lựa chọn võ tướng";
 							if (game.players[i].special_identity) {
 								str += "（" + get.translation(game.players[i].special_identity) + "）";
 							}
