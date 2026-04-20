@@ -467,7 +467,7 @@ export function menu(connectMenu) {
 				clickContainer.call(cacheMenuContainer, connectMenu);
 			}
 		};
-		menux = createMenu(connectMenu, ["开始", "选项", "武将", "卡牌", "扩展", "其它"], {
+		menux = createMenu(connectMenu, ["Bắt đầu", "Tuỳ chọn", "Võ tướng", "Thẻ bài", "Mở rộng", "Khác"], {
 			position: cacheMenuContainer,
 			bar: 40,
 		});
