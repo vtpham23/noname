@@ -3,28 +3,28 @@ import { lib, game, ui, get, ai, _status } from "noname";
 const dynamicTranslates = {
 	olfenyue(player, skill) {
 		const bool = player.storage[skill];
-		let yang = "摸两张牌",
-			yin = "使用一张【杀】";
+		let yang = "rút hai lá bài",
+			yin = "sử dụng một lá 【Sát】";
 		if (!bool) {
 			yang = `<span class=firetext>${yang}</span>`;
 		} else {
 			yin = `<span class=bluetext>${yin}</span>`;
 		}
-		const start = "转换技，每回合结束时，若本回合有角色受到过属性伤害，你可以：",
+		const start = "Chuyển hoán kỹ, khi kết thúc mỗi hiệp, nếu hiệp này có nhân vật chịu sát thương thuộc tính, bạn có thể:",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	olchunhui(player, skill) {
 		const bool = player.storage[`${skill}_rewrite`];
-		return `锁定技，每轮首张牌被使用后，若此牌为: ${bool? "黑色" : "红色"}，你回复1点体力；黑色，你摸一张牌。`;
+		return `Tỏa định kỹ, sau khi lá bài đầu tiên của mỗi vòng được sử dụng, nếu lá bài này là: ${bool? "màu đen" : "màu đỏ"}, bạn hồi 1 điểm thể lực; màu đen, bạn rút một lá bài.`;
 	},
 	olxiasheng(player, skill) {
 		const bool = player.storage[`${skill}_rewrite`];
-		return `准备阶段或当你受到伤害后，令一名其他角色交给你一张牌。若此牌为黑色，本轮你与其下一次使用${bool? "黑色" : "红色"}牌时，可为此牌增加或减少一个目标（至多减至1）。`;
+		return `Giai đoạn chuẩn bị hoặc sau khi bạn chịu sát thương, khiến một nhân vật khác đưa bạn một lá bài. Nếu lá bài này màu đen, lần tới bạn và người đó sử dụng bài ${bool? "màu đen" : "màu đỏ"} trong vòng này, có thể tăng hoặc giảm một mục tiêu cho lá bài đó (giảm tối đa còn 1).`;
 	},
-	olqiumu(player, skill) {
+	olxiasheng(player, skill) {
 		const bool = player.storage[`${skill}_rewrite`];
-		return `锁定技，你脱离濒死状态后，你重铸所有${bool? "黑色" : "红色"}牌，并将${get.poptip("olchunhui")}${get.poptip("olxiasheng")}〖秋暮〗描述中的“红色”均改为“黑色”。`;
+		return `Tỏa định kỹ, sau khi bạn thoát khỏi trạng thái gần chết, bạn trọng chú tất cả bài ${bool? "màu đen" : "màu đỏ"}, và đổi tất cả chữ “màu đỏ” trong mô tả kỹ năng ${get.poptip("olchunhui")}${get.poptip("olxiasheng")}〖Thu Mộ〗 thành “màu đen”.`;
 	},
 	olwenyi(player) {
 		let info = lib.translate["olwenyi_info"],
@@ -33,66 +33,66 @@ const dynamicTranslates = {
 	},
 	/*olqiaowu(player){
 		const bool = player.storage.olqiaowu;
-		let yang = "摸一张牌",
-			yin = "选择是否使用一张【杀】";
+		let yang = "rút một lá bài",
+			yin = "chọn có sử dụng một lá 【Sát】 hay không";
 		if (!bool) {
 			yang = `<span class=firetext>${yang}</span>`;
 		} else {
 			yin = `<span class=bluetext>${yin}</span>`;
 		}
-		const start = "转换技，每回合限一次，当你使用的【杀】或【闪】结算完毕后，你可令所有处于【酒】状态的角色：",
+		const start = "Chuyển hoán kỹ, mỗi hiệp giới hạn một lần, sau khi lá 【Sát】 hoặc 【Thiểm】 bạn sử dụng kết toán xong, bạn có thể khiến tất cả nhân vật trong trạng thái 【Tửu】:",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},*/
 	shanduan(player) {
 		if (player.storage.shanduan) {
-			return "锁定技。①摸牌/出牌/弃牌阶段开始时，你为本回合摸牌阶段摸牌数/攻击范围和使用【杀】的限制次数/手牌上限的默认值从数组R=[" + get.translation(player.storage.shanduan) + "]中分配数值。②当你于回合外受到伤害后，你令下回合〖善断①〗以此法分配的数值集合R中的最小值+1。";
+			return "Tỏa định kỹ. ① Khi bắt đầu giai đoạn rút bài/ra bài/bỏ bài, bạn phân bổ các giá trị cho số lá bài rút trong giai đoạn rút bài/tầm tấn công và giới hạn số lần sử dụng 【Sát】/giới hạn bài trên tay của hiệp này từ mảng R=[" + get.translation(player.storage.shanduan) + "]. ② Sau khi bạn chịu sát thương ngoài hiệp của mình, bạn khiến giá trị nhỏ nhất trong tập hợp giá trị R được phân bổ theo cách này của 〖Thiện Đoán ①〗 hiệp sau +1.";
 		}
-		return "锁定技。①摸牌/出牌/弃牌阶段开始时，你为本回合摸牌阶段摸牌数/攻击范围和使用【杀】的限制次数/手牌上限的默认值从数组R=[1，2，3，4]中分配数值。②当你于回合外受到伤害后，你令下回合〖善断①〗以此法分配的数值集合R中的最小值+1。";
+		return "Tỏa định kỹ. ① Khi bắt đầu giai đoạn rút bài/ra bài/bỏ bài, bạn phân bổ các giá trị cho số lá bài rút trong giai đoạn rút bài/tầm tấn công và giới hạn số lần sử dụng 【Sát】/giới hạn bài trên tay của hiệp này từ mảng R=[1, 2, 3, 4]. ② Sau khi bạn chịu sát thương ngoài hiệp của mình, bạn khiến giá trị nhỏ nhất trong tập hợp giá trị R được phân bổ theo cách này của 〖Thiện Đoán ①〗 hiệp sau +1.";
 	},
 	kunfen(player) {
 		if (player.storage.kunfen) {
-			return "结束阶段开始时，你可以失去1点体力，然后摸两张牌。";
+			return "Khi bắt đầu giai đoạn kết thúc, bạn có thể mất 1 điểm thể lực, sau đó rút hai lá bài.";
 		}
-		return "锁定技，结束阶段开始时，你失去1点体力，然后摸两张牌。";
+		return "Tỏa định kỹ, khi bắt đầu giai đoạn kết thúc, bạn mất 1 điểm thể lực, sau đó rút hai lá bài.";
 	},
 	jieyuan(player) {
-		var str = "当你对一名其他角色造成伤害时，";
+		var str = "Khi bạn gây sát thương cho một nhân vật khác, ";
 		if (!player.hasSkill("fenxin_fan")) {
-			str += "若其体力值大于或等于你的体力值，";
+			str += "nếu trị số thể lực của người đó lớn hơn hoặc bằng trị số thể lực của bạn, ";
 		}
-		str += "你可弃置一张";
+		str += "bạn có thể vứt bỏ một lá bài ";
 		if (!player.hasSkill("fenxin_nei")) {
-			str += "黑色手";
+			str += "trên tay màu đen";
 		}
-		str += "牌，令此伤害+1；当你受到一名其他角色造成的伤害时，";
+		str += ", khiến sát thương này +1; khi bạn chịu sát thương do một nhân vật khác gây ra, ";
 		if (!player.hasSkill("fenxin_zhong")) {
-			str += "若其体力值大于或等于你的体力值，";
+			str += "nếu trị số thể lực của người đó lớn hơn hoặc bằng trị số thể lực của bạn, ";
 		}
-		str += "你可弃置一张";
+		str += "bạn có thể vứt bỏ một lá bài ";
 		if (!player.hasSkill("fenxin_nei")) {
-			str += "红色手";
+			str += "trên tay màu đỏ";
 		}
-		str += "牌，令此伤害-1。";
+		str += ", khiến sát thương này -1.";
 		return str;
 	},
 	youlong(player) {
 		const bool = player.storage.youlong;
-		let yang = "普通锦囊牌",
-			yin = "基本牌";
+		let yang = "lá Cẩm nang thường",
+			yin = "lá bài Cơ bản";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。每轮每项各限一次，你可以废除你的一个装备栏，视为使用一张未以此法使用过的：",
+		let start = "Chuyển hoán kỹ. Mỗi vòng mỗi hạng mục giới hạn một lần, bạn có thể phế trừ một ô trang bị của mình, xem như sử dụng một lá bài chưa từng được sử dụng theo cách này:",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	luochong(player) {
 		var storage = player.getStorage("luochong");
-		var str = "准备阶段开始时/当你于一回合首次受到伤害后，你可选择本轮内未选择过的一项（每名角色每轮限选一次）：";
-		var choiceList = ["⒈令一名角色回复1点体力。", "⒉令一名角色失去1点体力。", "⒊令一名角色弃置两张牌。", "⒋令一名角色摸两张牌。"];
+		var str = "Khi bắt đầu giai đoạn chuẩn bị/Khi bạn lần đầu chịu sát thương trong một hiệp, bạn có thể chọn một hạng mục chưa được chọn trong vòng này (mỗi nhân vật mỗi vòng giới hạn chọn một lần):";
+		var choiceList = ["⒈ Khiến một nhân vật hồi 1 điểm thể lực.", "⒉ Khiến một nhân vật mất 1 điểm thể lực.", "⒊ Khiến một nhân vật vứt bỏ hai lá bài.", "⒋ Khiến một nhân vật rút hai lá bài."];
 		for (var i = 0; i < 4; i++) {
 			if (storage.includes(i)) {
 				choiceList[i] = '<span style="text-decoration: line-through;">' + choiceList[i] + "</span>";
@@ -103,8 +103,8 @@ const dynamicTranslates = {
 	},
 	spmanwang(player) {
 		var num = 4 - player.countMark("spmanwang");
-		var str = "出牌阶段，你可以弃置任意张牌。然后你依次执行以下选项中的前等量项：";
-		var list = ["⒈获得〖叛侵〗。", "⒉摸一张牌。", "⒊回复1点体力。", "⒋摸两张牌并失去〖叛侵〗。"];
+		var str = "Giai đoạn ra bài, bạn có thể vứt bỏ số lá bài bất kỳ. Sau đó bạn lần lượt thực thi các hạng mục đầu tiên tương ứng với số lượng đó trong các lựa chọn sau:";
+		var list = ["⒈ Nhận được 〖Phản Xâm〗.", "⒉ Rút một lá bài.", "⒊ Hồi 1 điểm thể lực.", "⒋ Rút hai lá bài và mất đi 〖Phản Xâm〗."];
 		for (var i = 0; i < 4; i++) {
 			if (i == num) {
 				str += '<span style="text-decoration: line-through;">';
@@ -121,56 +121,56 @@ const dynamicTranslates = {
 		if (count < 3) {
 			return lib.translate.olbixin_info.slice(count * 5);
 		}
-		return "你可以声明一种牌的类型（每种类型限[3]次），并选择一种你本轮未使用过且有合法目标的的基本牌。你摸[1]张牌，然后若你有此类型的手牌，你将所有此类型的手牌当此基本牌使用。";
+		return "Bạn có thể tuyên bố một loại bài (mỗi loại giới hạn [3] lần), và chọn một loại bài Cơ bản có mục tiêu hợp lệ mà bạn chưa sử dụng trong vòng này. Bạn rút [1] lá bài, sau đó nếu bạn có lá bài trên tay thuộc loại này, bạn xem tất cả bài trên tay thuộc loại này như lá bài Cơ bản đó để sử dụng.";
 	},
 	olfeibai(player) {
 		const bool = player.storage.olfeibai;
-		let yang = "当你因执行你使用的非黑色牌的效果而造成伤害时，此伤害值+1",
-			yin = "当你因执行你使用的非红色牌的效果而回复体力时，此回复值+1";
+		let yang = "Khi bạn do thực thi hiệu quả của lá bài không phải màu đen mà bạn sử dụng gây sát thương, giá trị sát thương này +1",
+			yin = "Khi bạn do thực thi hiệu quả của lá bài không phải màu đỏ mà bạn sử dụng hồi phục thể lực, giá trị hồi phục này +1";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技，锁定技。",
+		let start = "Chuyển hoán kỹ, Tỏa định kỹ.",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	olmiuyan(player) {
 		const bool = player.storage.olmiuyan;
-		let yang = "造成了伤害，则你获得此阶段内所有被展示过的牌",
-			yin = "未造成伤害，则你令此技能失效直到本轮结束";
+		let yang = "gây sát thương, thì bạn nhận được tất cả các lá bài đã được trình ra trong giai đoạn này",
+			yin = "không gây sát thương, thì bạn khiến kỹ năng này vô hiệu cho đến khi vòng này kết thúc";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。你可以将一张黑色牌当做【火攻】使用，然后若此牌：",
+		let start = "Chuyển hoán kỹ. Bạn có thể xem một lá bài màu đen như 【Hỏa Công】 để sử dụng, sau đó nếu lá bài này:",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	olsaogu(player) {
 		const bool = player.storage.olsaogu;
-		let yang = "弃置两张牌（不能包含你本阶段弃置过的花色），然后使用其中的【杀】",
-			yin = "摸一张牌";
+		let yang = "vứt bỏ hai lá bài (không được bao gồm chất bài bạn đã vứt trong giai đoạn này), sau đó sử dụng lá 【Sát】 trong đó",
+			yin = "rút một lá bài";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。①出牌阶段，你可以：",
-			end = "。②结束阶段，你可以弃置一张牌，令一名其他角色执行你当前〖扫谷①〗的分支。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		let start = "Chuyển hoán kỹ. ① Giai đoạn ra bài, bạn có thể:",
+			end = "。② Giai đoạn kết thúc, bạn có thể vứt bỏ một lá bài, khiến một nhân vật khác thực thi nhánh 〖Tảo Cốc ①〗 hiện tại của bạn.";
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	oldongdao(player) {
 		if (player.storage.oldongdao) {
-			return '农民的回合结束时：阴，你可以令地主进行一个额外回合；<span class="bluetext">阳，其可以进行一个额外回合</span>。';
+			return 'Khi hiệp của Nông dân kết thúc: Âm, bạn có thể khiến Địa chủ tiến hành một hiệp phụ; <span class="bluetext">Dương, người đó có thể tiến hành một hiệp phụ</span>.';
 		}
-		return '农民的回合结束时：<span class="bluetext">阴，你可以令地主进行一个额外回合</span>；阳，其可以进行一个额外回合。';
+		return 'Khi hiệp của Nông dân kết thúc: <span class="bluetext">Âm, bạn có thể khiến Địa chủ tiến hành một hiệp phụ</span>; Dương, người đó có thể tiến hành một hiệp phụ.';
 	},
 	ollangdao(player) {
-		var str = "当你使用【杀】指定唯一目标时，你可以与该目标角色同时选择一项：";
-		var list = ["1.令此【杀】伤害基数+1；", "2.令你可以为此【杀】多选择一个目标；", "3.令此【杀】不可被响应。"];
+		var str = "Khi bạn sử dụng 【Sát】 chỉ định mục tiêu duy nhất, bạn có thể cùng nhân vật mục tiêu đó đồng thời chọn một:";
+		var list = ["1. Khiến sát thương cơ bản của lá 【Sát】 này +1;", "2. Khiến bạn có thể chọn thêm một mục tiêu cho lá 【Sát】 này;", "3. Khiến lá 【Sát】 này không thể bị hưởng ứng."];
 		var storage = player.getStorage("ollangdao");
 		list.forEach((item, index) => {
 			if (storage.includes(index)) {
@@ -179,52 +179,52 @@ const dynamicTranslates = {
 				str += item;
 			}
 		});
-		str += "然后若没有角色因此【杀】死亡，你移除本次被选择的项。";
+		str += "Sau đó nếu không có nhân vật nào chết vì lá 【Sát】 này, bạn xóa bỏ hạng mục đã được chọn lần này.";
 		return str;
 	},
 	olxuanzhu(player) {
 		const bool = player.storage.olxuanzhu;
-		let yang = "任意基本牌",
-			yin = "任意普通锦囊牌（须指定目标且仅指定一个目标）";
+		let yang = "Lá bài Cơ bản bất kỳ",
+			yin = "Lá Cẩm nang thường bất kỳ (phải chỉ định mục tiêu và chỉ chỉ định một mục tiêu)";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。每回合限一次，你可以将一张牌称为“玄”置于武将牌上，然后视为使用：",
-			end = "。若此次置于武将牌上的“玄”：不为装备牌，你弃置一张牌；为装备牌，你将所有“玄”置入弃牌堆，然后摸等量的牌。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		let start = "Chuyển hoán kỹ. Mỗi hiệp giới hạn một lần, bạn có thể gọi một lá bài là “Huyền” rồi đặt lên lá võ tướng, sau đó xem như sử dụng:",
+			end = "。Nếu lá “Huyền” được đặt lên lá võ tướng lần này: không phải là bài Trang bị, bạn vứt bỏ một lá bài; là bài Trang bị, bạn bỏ tất cả “Huyền” vào đống bài bỏ, sau đó rút số lá bài tương ứng.";
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	olziruo(player) {
 		const bool = player.storage.olziruo;
-		let yang = "左",
-			yin = "右";
+		let yang = "bên trái",
+			yin = "bên phải";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技，锁定技。①当你使用最",
-			end = "侧的手牌时，你摸一张牌。②你以此法摸牌后本回合不能整理手牌。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		let start = "Chuyển hoán kỹ, Tỏa định kỹ. ① Khi bạn sử dụng lá bài trên tay ở ngoài cùng ",
+			end = " nhất, bạn rút một lá bài. ② Sau khi bạn rút bài theo cách này, bạn không thể sắp xếp lại bài trên tay trong hiệp này.";
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	olkouchao(player) {
 		const nameList = player.storage.olkouchao || ["sha", "huogong", "guohe"];
 		const str = nameList.map(i => "【" + get.translation(i) + "】").join("/");
-		return "每轮每项限一次，你可以将一张牌当作" + str + "使用。此牌结算完毕后，将此项改为本局游戏最后一张不因使用进入弃牌堆的基本牌或普通锦囊牌的牌名，然后若〖寇钞〗的所有项均为基本牌，则你修改〖寇钞〗的所有项为【顺手牵羊】。";
+		return "Mỗi vòng mỗi hạng mục giới hạn một lần, bạn có thể xem một lá bài như " + str + " để sử dụng. Sau khi lá bài này kết toán xong, đổi hạng mục này thành tên của lá bài Cơ bản hoặc Cẩm nang thường cuối cùng không vì sử dụng mà vào đống bài bỏ trong ván game này, sau đó nếu tất cả hạng mục của 〖Khấu Sao〗 đều là bài Cơ bản, bạn sửa tất cả hạng mục của 〖Khấu Sao〗 thành 【Thuận Thủ Khiên Dương】.";
 	},
 	olliyong(player) {
 		const bool = player.storage.olliyong;
-		let yang = "你可以将一张你本回合未使用过的花色的牌当作【决斗】使用",
-			yin = "你可以从牌堆中获得一张你本回合使用过的花色的牌，令一名其他角色视为对你使用一张【决斗】";
+		let yang = "bạn có thể xem một lá bài có chất mà bạn chưa sử dụng trong hiệp này như 【Quyết Đấu】 để sử dụng",
+			yin = "bạn có thể nhận từ xấp bài một lá bài có chất mà bạn đã sử dụng trong hiệp này, khiến một nhân vật khác xem như sử dụng một lá 【Quyết Đấu】 đối với bạn";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。出牌阶段，",
+		let start = "Chuyển hoán kỹ. Giai đoạn ra bài, ",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 };
 export default dynamicTranslates;

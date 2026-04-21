@@ -3096,7 +3096,7 @@ game.import("card", function () {
 						event.directfalse = true;
 					} else {
 						target
-							.chooseToUse("Sử dụng 1 lá Sát đối với " + get.translation(event.addedTarget) + "hoặc lệnh" + get.translation(player) + "nhận bài vũ khí của bạn", function (card, player) {
+							.chooseToUse("Sử dụng 1 lá Sát đối với " + get.translation(event.addedTarget) + " hoặc lệnh " + get.translation(player) + " nhận bài vũ khí của bạn", function (card, player) {
 								if (get.name(card) !== "sha") {
 									return false;
 								}
