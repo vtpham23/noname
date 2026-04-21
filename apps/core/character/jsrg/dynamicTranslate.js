@@ -3,29 +3,29 @@ import { lib, game, ui, get, ai, _status } from "noname";
 const dynamicTranslates = {
 	jsrgshichong(player) {
 		const bool = player.storage.jsrgshichong;
-		let yang = "你可以获得目标角色一张手牌",
-			yin = "目标角色可以交给你一张手牌";
+		let yang = "Bạn có thể lấy một lá bài trên tay của nhân vật mục tiêu",
+			yin = "Nhân vật mục tiêu có thể đưa cho bạn một lá bài trên tay";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。当你使用牌指定其他角色为唯一目标后，",
+		let start = "Kỹ năng chuyển đổi. Sau khi bạn sử dụng bài chỉ định một nhân vật khác làm mục tiêu duy nhất, ",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương：${yang}；Âm：${yin}${end}`;
 	},
 	jsrgdangren(player) {
 		const bool = player.storage.jsrgdangren;
-		let yang = "当你需要对自己使用【桃】时，你可以视为使用之",
-			yin = "当你可以对其他角色使用【桃】时，你须视为使用之";
+		let yang = "Khi bạn cần sử dụng【Đào】cho bản thân, bạn có thể coi như đã sử dụng",
+			yin = "Khi bạn có thể sử dụng【Đào】cho nhân vật khác, bạn phải coi như đã sử dụng";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。",
+		let start = "Kỹ năng chuyển đổi。",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương：${yang}；Âm：${yin}${end}`;
 	},
 };
 
