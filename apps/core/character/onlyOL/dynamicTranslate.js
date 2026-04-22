@@ -1,57 +1,55 @@
-import { lib, game, ui, get, ai, _status } from "noname";
-
 const dynamicTranslates = {
 	olsblixian(player) {
 		let names =
 			player
 				.getStorage("olsblixian_names")
-				.map((name, i, arr) => `${i == arr.length - 1 ? "或" : "、"}【${get.translation(name)}】`)
+				.map((name, i, arr) => `${i == arr.length - 1 ? "hoặc" : "、"}【${get.translation(name)}】`)
 				.join("") || "";
 		let triggers =
 			player
 				.getStorage("olsblixian_triggers")
 				.map(i => get.translation(i))
-				.join("、") + "或";
+				.join("、") + "hoặc";
 		if (triggers.length < 2) {
 			triggers = "";
 		}
-		return `${triggers}当你受到伤害后，你可将一张牌当【无中生有】${names}使用。当你以此法使用过三种不同牌名的锦囊牌后，此技能于你的结束阶段也可发动。`;
+		return `${triggers}Sau khi bạn nhận sát thương, bạn có thể sử dụng một lá bài như【Vô Trung Sinh Hữu】${names}. Sau khi bạn dùng cách này để sử dụng ba loại bài Cẩm Nang có tên khác nhau, kỹ năng này cũng có thể kích hoạt vào giai đoạn kết thúc của bạn.`;
 	},
 	olsbqianfu(player) {
 		const bool = player.storage.olsbqianfu;
-		let yang = "你可以将一张黑色牌当【过河拆桥】使用",
-			yin = "你可以将一张红色牌当【火攻】使用";
+		let yang = "Bạn có thể sử dụng một lá bài đen như【Quá Hà Sái Kiều】",
+			yin = "Bạn có thể sử dụng một lá bài đỏ như【Hỏa Công】";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = `转换技，出牌阶段${player.hasSkill("olsbqianfu_remove") ? "各限一次" : ""}，`,
-			end = "。结算后，你可将因此弃置的牌置于牌堆顶。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		let start = `Kỹ năng chuyển đổi, giai đoạn ra bài${player.hasSkill("olsbqianfu_remove") ? "mỗi loại giới hạn một lần" : ""}, `,
+			end = ". Sau khi giải quyết, bạn có thể đặt lá bài bị bỏ vào đỉnh bài.";
+		return `${start}Dương：${yang}；Âm：${yin}${end}`;
 	},
 	olsbzhijue(player) {
 		const bool = player.storage.olsbzhijue;
-		let yang = "出牌阶段，你可将牌堆顶的一张牌当【火攻】使用",
-			yin = "将一种颜色的手牌置入弃牌堆（每种颜色每回合限一次），然后可视为使用其中一张基本牌或普通锦囊牌";
+		let yang = "Giai đoạn ra bài, bạn có thể sử dụng lá bài trên đỉnh bài như【Hỏa Công】",
+			yin = "Đặt tất cả bài trên tay cùng màu vào đống bỏ bài (mỗi màu giới hạn một lần mỗi lượt), sau đó có thể xem như sử dụng một trong số đó như bài cơ bản hoặc bài Cẩm Nang thông thường";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技，",
-			end = "。若你以此法未造成伤害，你令〖知天〗可见牌与观看牌数-1（至少减至1），然后你摸两张牌。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		let start = "Chuyển đổi kỹ，",
+			end = "。Nếu ngươi chưa gây sát thương bằng cách này，ngươi khiến〖Tri Thiên〗bài có thể thấy và số bài quan sát -1（giảm ít nhất xuống 1），sau đó ngươi rút hai lá bài。";
+		return `${start}Dương：${yang}；Âm：${yin}${end}`;
 	},
 	olsbjinming(player) {
-		let str = "回合开始时，你可以选择一项：";
-		for (let i of ["1.回复过1点体力；", "2.弃置过两张牌；", "3.使用过三种类型的牌；", "4.造成过4点伤害。"]) {
+		let str = "Khi bắt đầu lượt，ngươi có thể chọn một hạng mục：";
+		for (let i of ["1.Đã hồi phục hơn 1 điểm thể lực；", "2.Đã bỏ hai lá bài；", "3.Đã sử dụng ba loại bài；", "4.Đã gây 4 điểm sát thương。"]) {
 			if (!player.getStorage("olsbjinming").includes(parseInt(i.slice(0, 1)))) {
 				i = `<span style="text-decoration: line-through;">${i}</span>`;
 			}
 			str += i;
 		}
-		str += "然后本回合结束时你摸X张牌，若未满足选择的条件，则删除此选项（X为你最后一次发动〖矜名〗选择的选项序号）。";
+		str += "Sau đó khi kết thúc lượt này ngươi rút X lá bài，nếu không thỏa mãn điều kiện đã chọn，thì xóa tùy chọn này（X là số thứ tự tùy chọn mà ngươi chọn lần cuối khi phát động〖Căng Danh〗）。";
 		return str;
 	},
 	old_oljiaozhao(player) {
@@ -68,3 +66,4 @@ const dynamicTranslates = {
 	},
 };
 export default dynamicTranslates;
+
