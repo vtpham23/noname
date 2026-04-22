@@ -3,59 +3,59 @@ import { lib, game, ui, get, ai, _status } from "noname";
 const dynamicTranslates = {
 	twfeifu(player) {
 		const bool = player.storage.twfeifu;
-		let yang = "当你成为【杀】的唯一目标后",
-			yin = "当你使用【杀】指定唯一目标后";
+		let yang = "Khi bạn trở thành mục tiêu duy nhất của 【Sát】",
+			yin = "Khi bạn chỉ định mục tiêu duy nhất sau khi sử dụng 【Sát】";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "锁定技，转换技。",
-			end = "，目标角色须交给使用者一张牌。若此牌为装备牌，则使用者可使用此牌。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		let start = "Kỹ năng cố định, kỹ năng chuyển đổi.",
+			end = "，nhân vật mục tiêu phải giao cho người sử dụng một lá bài. Nếu lá bài này là lá bài trang bị, người sử dụng có thể sử dụng lá bài này.";
+		return `${start}Dương：${yang}；Âm：${yin}${end}`;
 	},
 	twfengpo(player) {
 		if (player.storage.twfengpo) {
-			return "当你使用【杀】或【决斗】指定唯一目标后，你可观看目标角色的手牌并选择一项：⒈摸X张牌。⒉令此牌的伤害值基数+X（X为其手牌中的红色牌数）。";
+			return "Khi bạn chỉ định mục tiêu duy nhất sau khi sử dụng 【Sát】hoặc 【Quyết Đấu】, bạn có thể xem lá bài trên tay của nhân vật mục tiêu và chọn một mục: ⒈Rút X lá bài. ⒉Làm cho giá trị sát thương cơ bản của lá bài này +X (X là số lá bài màu đỏ trong lá bài trên tay của nó).";
 		}
-		return "①当你使用【杀】或【决斗】指定唯一目标后，你可观看目标角色的手牌并选择一项：⒈摸X张牌。⒉令此牌的伤害值基数+X（X为其手牌中的♦数）。②当你杀死一名角色后，你将〖凤魄①〗中的“♦数”改为“红色牌数”。";
+		return "①Khi bạn chỉ định mục tiêu duy nhất sau khi sử dụng 【Sát】hoặc 【Quyết Đấu】, bạn có thể xem lá bài trên tay của nhân vật mục tiêu và chọn một mục: ⒈Rút X lá bài. ⒉Làm cho giá trị sát thương cơ bản của lá bài này +X (X là số ♦ trong lá bài trên tay của nó). ②Khi bạn giết chết một nhân vật, bạn sẽ thay đổi "số ♦" trong 〖Phượng Phách①〗 thành "số lá bài màu đỏ".";
 	},
 	twjiexun(player) {
 		return lib.translate[player.hasSkill("funan_jiexun") ? "twjiexunx_info" : "twjiexun_info"];
 	},
 	twzhenliang(player) {
 		const bool = player.storage.twzhenliang;
-		let yang = "出牌阶段限一次。你可以弃置一张牌并对攻击范围内的一名角色造成1点伤害",
-			yin = "当你或你攻击范围内的一名角色于你的回合外受到伤害时，你可以弃置一张牌令此伤害-1。然后若你以此法弃置的牌颜色与“任”的颜色相同，你摸一张牌";
+		let yang = "Giai đoạn sử dụng bài, giới hạn một lần. Bạn có thể bỏ một lá bài và gây 1 điểm sát thương cho một nhân vật trong tầm tấn công của bạn",
+			yin = "Khi bạn hoặc một nhân vật trong tầm tấn công của bạn nhận được sát thương ngoài lượt của bạn, bạn có thể bỏ một lá bài để làm cho sát thương này giảm 1. Sau đó, nếu lá bài bạn bỏ theo cách này có cùng màu sắc với "Nhân", bạn sẽ rút một lá bài";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。",
+		let start = "Kỹ năng chuyển đổi.",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương：${yang}；Âm：${yin}${end}`;
 	},
 	twdengjian(player) {
-		let str = "①其他角色的弃牌阶段结束时，你可以随机获得本回合所有造成伤害的牌对应的实体牌的其中一张与你本轮以此法获得的牌的颜色均不同的【杀】，称为“剑法”。";
+		let str = "①Khi kết thúc giai đoạn bỏ bài của các nhân vật khác, bạn có thể ngẫu nhiên lấy một 【Sát】có màu sắc khác với tất cả 【Sát】bạn đã lấy theo cách này trong lượt này và tương ứng với một trong các lá bài gây sát thương trong lượt này, gọi là "Kiếm Pháp".";
 		if (player.isTempBanned("twdengjian")) {
 			str = '<span style="opacity:0.5">' + str + "</span>";
 		}
-		str += "②你使用“剑法”牌不计入次数限制。";
+		str += "②Bạn sử dụng lá bài "Kiếm Pháp" không tính trong giới hạn lần sử dụng.";
 		return str;
 	},
 	twduwang(player) {
-		let str = "使命技。";
+		let str = "Kỹ năng sứ mệnh.";
 		if (!player.storage.twduwang_fail) {
 			str += "①";
 		}
-		str += "出牌阶段开始时，你可以选择至多三名有牌的其他角色，摸X张牌（X为选择角色数+1），然后这些角色依次将一张牌当【决斗】对你使用。";
+		str += "Vào đầu giai đoạn sử dụng bài, bạn có thể chọn tối đa ba nhân vật khác có bài, rút X lá bài (X là số nhân vật được chọn + 1), sau đó những nhân vật này lần lượt sử dụng một lá bài như 【Quyết Đấu】đối với bạn.";
 		if (!player.storage.twduwang_fail) {
 			str += `\
-			②当你处于濒死状态时，其他角色不能对你使用【桃】。\
-			③使命：使用【决斗】或成为【决斗】目标的次数之和不小于4（若游戏总人数小于4则改为3）。\
-			④成功：准备阶段，若你于你的上回合完成了〖独往③〗的使命，则你重置〖独往〗并将〖独往〗修改至只保留〖独往①〗的效果，选择一项：⒈获得〖狭勇〗；⒉重置〖延势〗并令其获得历战效果。\
-			⑤失败：当你死亡时，使命失败。`;
+			②Khi bạn ở trạng thái gần chết, những nhân vật khác không thể sử dụng 【Đào】đối với bạn.\
+			③Sứ mệnh: Tổng số lần sử dụng 【Quyết Đấu】hoặc trở thành mục tiêu của 【Quyết Đấu】không nhỏ hơn 4 (nếu tổng số người chơi dưới 4 thì đổi thành 3).\
+			④Thành công: Giai đoạn chuẩn bị, nếu bạn đã hoàn thành sứ mệnh 〖Độc Vãng③〗 trong lượt trước của mình, bạn sẽ đặt lại 〖Độc Vãng〗 và sửa đổi 〖Độc Vãng〗 để chỉ giữ lại hiệu ứng của 〖Độc Vãng①〗, chọn một mục: ⒈Có được 〖Hiệp Dũng〗；⒉Đặt lại 〖Kéo Thế〗 và cho phép nó có được hiệu ứng chiến đấu lịch sử.\
+			⑤Thất bại: Khi bạn chết, sứ mệnh thất bại.`;
 		}
 		return str;
 	},
@@ -76,3 +76,4 @@ const dynamicTranslates = {
 	},
 };
 export default dynamicTranslates;
+
