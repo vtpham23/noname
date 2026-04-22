@@ -3,199 +3,199 @@ import { lib, game, ui, get, ai, _status } from "noname";
 const dynamicTranslates = {
 	huamao_wushen(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `锁定技。①你的${suit}手牌均视为【杀】。②你使用${suit}【杀】无距离和次数限制且不可被响应。`;
+		return `Kỹ năng cố định. ①Các thẻ ${suit} của bạn đều được coi là【Sát】. ②Bạn sử dụng thẻ ${suit}【Sát】không có giới hạn khoảng cách và số lần và không thể được đáp ứng.`;
 	},
 	huamao_liushi(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `出牌阶段，你可以将一张${suit}牌置于牌堆顶，视为对一名角色使用一张【杀】（无距离限制且不计入使用次数）。当此【杀】造成伤害后，受到伤害的角色获得一个“流”。有“流”的角色手牌上限-X（X为其“流”数）。`;
+		return `Giai đoạn xuất bài, bạn có thể đặt một thẻ ${suit} trên cùng bộ bài, được coi là sử dụng một【Sát】cho một nhân vật khác (không có giới hạn khoảng cách và không tính vào số lần sử dụng). Sau khi【Sát】này gây ra sát thương, nhân vật bị sát thương nhận được một "Lưu". Nhân vật có "Lưu" giảm tối đa thẻ bằng X (X là số "Lưu" của họ).`;
 	},
 	huamao_gongxin(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `出牌阶段限一次，你可以观看一名其他角色的手牌，并可以展示其中一张${suit}牌，然后将其弃置或置于牌堆顶。`;
+		return `Giai đoạn xuất bài giới hạn một lần, bạn có thể xem thẻ tay của một nhân vật khác và có thể hiển thị một thẻ ${suit} trong đó, sau đó loại bỏ nó hoặc đặt nó trên cùng bộ bài.`;
 	},
 	huamao_tianxiang(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `当你受到伤害时，你可以弃置一张${suit}手牌，防止此次伤害并选择一名其他角色，然后你选择一项：1.令其受到伤害来源对其造成的1点伤害，然后摸X张牌（X为其已损失体力值且至多为5）；2.令其失去1点体力，然后获得你弃置的牌。`;
+		return `Khi bạn nhận sát thương, bạn có thể loại bỏ một thẻ ${suit} trong tay, ngăn chặn sát thương này và chọn một nhân vật khác, sau đó bạn chọn một tùy chọn: 1. Khiến họ nhận 1 điểm sát thương từ nguồn gây sát thương, sau đó rút X thẻ (X là giá trị sinh lực đã mất của họ và tối đa là 5); 2. Khiến họ mất 1 điểm sinh lực, sau đó nhận thẻ bạn đã loại bỏ.`;
 	},
 	huamao_guose(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `出牌阶段限一次，你可以选择一项：将一张${suit}牌当做【乐不思蜀】使用；或弃置一张${suit}牌并弃置场上的一张【乐不思蜀】。选择完成后，你摸一张牌。`;
+		return `Giai đoạn xuất bài giới hạn một lần, bạn có thể chọn một tùy chọn: Sử dụng một thẻ ${suit} như【Lạc Bất Tư Thục】; hoặc loại bỏ một thẻ ${suit} và loại bỏ một【Lạc Bất Tư Thục】trên sân. Sau khi chọn xong, bạn rút một thẻ.`;
 	},
 	huamao_limu(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `出牌阶段，你可以将一张${suit}牌当做【乐不思蜀】对自己使用，然后回复1点体力。只要你的判定区内有牌，你对攻击范围内的其他角色使用牌便没有次数和距离限制。`;
+		return `Giai đoạn xuất bài, bạn có thể sử dụng một thẻ ${suit} như【Lạc Bất Tư Thục】cho chính mình, sau đó hồi phục 1 điểm sinh lực. Miễn là khu vực phán xét của bạn có thẻ, việc bạn sử dụng thẻ cho các nhân vật khác trong phạm vi tấn công sẽ không có giới hạn số lần và khoảng cách.`;
 	},
 	huamao_fengpo(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `每种牌名各限一次。当你每回合使用的第一张【杀】或【决斗】指定目标后，若目标角色数为1，你可以选择一项：1.摸X张牌，令此牌的伤害值基数+1；2.摸一张牌，令此牌的伤害值基数+X（X为其${suit}牌的数量）。`;
+		return `Mỗi tên thẻ giới hạn một lần. Khi bạn chỉ định mục tiêu cho【Sát】hoặc【Quyết Đấu】đầu tiên mỗi lượt, nếu số lượng nhân vật mục tiêu là 1, bạn có thể chọn một tùy chọn: 1. Rút X thẻ, làm cho giá trị sát thương cơ bản của thẻ này tăng +1; 2. Rút một thẻ, làm cho giá trị sát thương cơ bản của thẻ này tăng +X (X là số lượng thẻ ${suit} của họ).`;
 	},
 	huamao_jiexun(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `结束阶段，你可令一名其他角色摸等同于场上${suit}牌数的牌，然后弃置X张牌（X为此前该技能发动过的次数）。若有角色因此法弃置了所有牌，则你将X归零，然后你发动〖复难〗时，无须令对方获得你使用的牌。`;
+		return `Giai đoạn kết thúc, bạn có thể khiến một nhân vật khác rút số thẻ bằng số thẻ ${suit} trên sân, sau đó loại bỏ X thẻ (X là số lần kỹ năng này đã phát động). Nếu có nhân vật loại bỏ tất cả các thẻ bằng cách này, thì bạn đặt lại X bằng 0, sau đó khi bạn phát động〖Phục Nan〗, bạn không cần khiến đối phương nhận thẻ bạn sử dụng.`;
 	},
 	huamao_leiji(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `当你使用或打出一张【闪】时，你可令任意一名角色进行一次判定。若结果为${suit}，其受到2点雷电伤害。`;
+		return `Khi bạn sử dụng hoặc bỏ một【Thiểu】, bạn có thể khiến bất kỳ một nhân vật nào thực hiện một lần phán xét. Nếu kết quả là ${suit}, họ nhận 2 điểm sát thương sét.`;
 	},
 	huamao_zuoding(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `当其他角色于其回合内使用${suit}牌指定目标后，若本回合内没有角色受到过伤害，则你可以令其中一名目标角色摸一张牌。`;
+		return `Khi nhân vật khác sử dụng thẻ ${suit} chỉ định mục tiêu trong lượt của họ, nếu không có nhân vật nào bị sát thương trong lượt này, thì bạn có thể khiến một trong các nhân vật mục tiêu rút một thẻ.`;
 	},
 	huamao_miehai(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `你可以将两张牌当作无距离次数限制的刺【杀】使用。此【杀】结算完成后，此过程中正面失去${suit}牌且已受伤的角色摸两张牌并回复1点体力。`;
+		return `Bạn có thể sử dụng hai thẻ như xuyên【Sát】không có giới hạn khoảng cách và số lần. Sau khi【Sát】này được tính toán hoàn thành, các nhân vật mất thẻ ${suit} tích cực và đã bị thương trong quá trình này rút hai thẻ và hồi phục 1 điểm sinh lực.`;
 	},
 	huamao_jiyu(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `出牌阶段限一次，你可以令一名角色弃置一张手牌。若如此做，你不能使用与之相同花色的牌，直到回合结束。若其以此法弃置的牌为${suit}，你翻面并令其失去1点体力。若你有未被〖讥谀〗限制的手牌，则你可以继续发动此技能，但不能选择本回合已经选择过的目标。`;
+		return `Giai đoạn xuất bài giới hạn một lần, bạn có thể khiến một nhân vật loại bỏ một thẻ tay. Nếu làm vậy, bạn không thể sử dụng thẻ cùng chất, cho đến hết lượt. Nếu thẻ họ loại bỏ bằng cách này là ${suit}, bạn lộn mặt và khiến họ mất 1 điểm sinh lực. Nếu bạn có thẻ tay không bị〖Kỉ Gièn〗giới hạn, thì bạn có thể tiếp tục phát động kỹ năng này, nhưng không thể chọn mục tiêu đã được chọn trong lượt này.`;
 	},
 	huamao_luoying(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `当其他角色的${suit}牌因弃置或判定而进入弃牌堆后，你可以获得之。`;
+		return `Khi thẻ ${suit} của nhân vật khác vào bộ bài loại bỏ do bị loại bỏ hoặc phán xét, bạn có thể nhận được nó.`;
 	},
 	huamao_lianhuan(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `你可以将${suit}手牌当作【铁索连环】使用或重铸。`;
+		return `Bạn có thể sử dụng hoặc sửa chế thẻ ${suit} trong tay như【Tiết Xích Liên Hoàn】.`;
 	},
 	huamao_zhujiu(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `你可以将至少X+1张牌当【酒】使用（X为你本回合已使用过【酒】的次数），然后若这些牌存在非${suit}牌，此技能失效直到回合结束。`;
+		return `Bạn có thể sử dụng ít nhất X+1 thẻ như【Rượu】(X là số lần bạn đã sử dụng【Rượu】trong lượt này), sau đó nếu những thẻ này tồn tại thẻ không phải ${suit}, kỹ năng này không có hiệu lực cho đến hết lượt.`;
 	},
 	huamao_ninghan(player, skill) {
 		const suit = get.translation(get.info("wxdl_huamao").getSuit(player, skill));
-		return `锁定技。①所有角色手牌中的${suit}【杀】均视为冰【杀】。②当一名角色受到冰冻伤害后，你将造成此伤害的牌对应的实体牌置入“城”。`;
+		return `Kỹ năng cố định. ①Tất cả【Sát】${suit}trong thẻ tay của mọi nhân vật đều được coi là đá【Sát】. ②Khi một nhân vật nhận sát thương cấp đông sau, bạn đặt thẻ vật lý tương ứng với bài gây sát thương vào "Thành".`;
 	},
 	eu_zhitong(player) {
 		const bool = player.storage.eu_zhitong;
-		let yang = "自己，摸两张牌且回复1点体力",
-			yin = "其他角色，你获得其装备区所有牌并对其造成1点伤害";
+		let yang = "Chính mình, rút hai thẻ và hồi phục 1 điểm sinh lực",
+			yin = "Nhân vật khác, bạn nhận tất cả các thẻ trong khu vực trang bị của họ và gây 1 điểm sát thương cho họ";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技，当你使用牌时，若目标包含，",
+		let start = "Kỹ năng chuyển đổi, khi bạn sử dụng thẻ, nếu mục tiêu bao gồm, ",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	peyuanjue(player) {
 		const bool = player.storage.peyuanjue;
-		let yang = "令所有角色的基本牌视为无次数限制的【杀】",
-			yin = "令所有角色与你互相计算距离为1，且你视为拥有〖同忾〗";
+		let yang = "Khiến tất cả thẻ cơ bản của các nhân vật được coi là【Sát】không có giới hạn số lần",
+			yin = "Khiến tất cả các nhân vật và bạn tính toán khoảng cách lẫn nhau là 1, và bạn được coi là sở hữu〖Đồng Khải〗";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。摸牌阶段开始时，你可以跳过摸牌阶段，",
+		let start = "Kỹ năng chuyển đổi. Khi giai đoạn rút thẻ bắt đầu, bạn có thể bỏ qua giai đoạn rút thẻ, ",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	yjjiechu(player) {
 		const bool = player.getStorage("yjjiechu", false);
-		let yang = "出牌阶段，你可以视为使用一张【顺手牵羊】，结算结束后成为目标的角色可以对你使用一张【杀】",
-			yin = "当你成为【杀】的目标时，你可以弃置一张手牌改变【杀】的花色和属性";
+		let yang = "Giai đoạn xuất bài, bạn có thể được coi là sử dụng【Thuận Tay Khiên Dương】, sau khi tính toán kết thúc, nhân vật mục tiêu có thể sử dụng【Sát】cho bạn",
+			yin = "Khi bạn trở thành mục tiêu của【Sát】, bạn có thể loại bỏ một thẻ tay để thay đổi chất và thuộc tính của【Sát】";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。",
+		let start = "Kỹ năng chuyển đổi。",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	scls_miaojian(player) {
 		if (player.hasMark("scls_miaojian")) {
-			return "出牌阶段限一次，你可视为使用一张刺【杀】或【无中生有】。";
+			return "Giai đoạn xuất bài giới hạn một lần, bạn có thể được coi là sử dụng xuyên【Sát】hoặc【Vô Trung Sinh Hữu】.";
 		}
-		return "出牌阶段限一次，你可将一张基本牌当做刺【杀】使用，或将一张非基本牌当做【无中生有】使用。";
+		return "Giai đoạn xuất bài giới hạn một lần, bạn có thể sử dụng một thẻ cơ bản như xuyên【Sát】, hoặc sử dụng một thẻ không phải cơ bản như【Vô Trung Sinh Hữu】.";
 	},
 	scls_lianhua(player) {
 		if (player.hasMark("scls_lianhua")) {
-			return "当你成为【杀】的目标后，你摸一张牌。然后此【杀】的使用者需弃置一张牌，否则此【杀】对你无效。";
+			return "Khi bạn trở thành mục tiêu của【Sát】, bạn rút một thẻ. Sau đó người sử dụng【Sát】này cần loại bỏ một thẻ, nếu không【Sát】này không có hiệu lực với bạn.";
 		}
-		return "当你成为【杀】的目标后，你摸一张牌。";
+		return "Khi bạn trở thành mục tiêu của【Sát】, bạn rút một thẻ.";
 	},
 	jdjuqi(player) {
 		const bool = player.storage.jdjuqi;
-		let yang = "你摸三张牌；其他角色的准备阶段，其可以展示并交给你一张黑色手牌",
-			yin = "你令你本回合使用牌无次数限制且造成的伤害+1；其他角色的准备阶段，其可以展示并交给你一张红色手牌";
+		let yang = "Bạn rút ba thẻ; giai đoạn chuẩn bị của nhân vật khác, họ có thể hiển thị và giao cho bạn một thẻ tay màu đen",
+			yin = "Bạn khiến bạn sử dụng thẻ trong lượt này không có giới hạn số lần và sát thương gây ra tăng +1; giai đoạn chuẩn bị của nhân vật khác, họ có thể hiển thị và giao cho bạn một thẻ tay màu đỏ";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。准备阶段，",
+		let start = "Kỹ năng chuyển đổi. Giai đoạn chuẩn bị, ",
 			end = "。";
-		return `${start}阳：${yang}。阴：${yin}${end}`;
+		return `${start}Dương: ${yang}. Âm: ${yin}${end}`;
 	},
 	jdlongdan(player) {
 		return lib.translate["jdlongdan" + (player.hasSkill("sblongdan_mark", null, null, false) ? "x" : "") + "_info"];
 	},
 	tylongnu(player) {
 		const bool = player.hasSkill("tylongnu_yang") || (player.storage.tylongnu && !player.hasSkill("tylongnu_yin"));
-		let yang = "失去1点体力，然后此阶段内你可以将红色手牌当无距离限制的火【杀】使用或打出",
-			yin = "减少1点体力上限，然后此阶段内你可以将锦囊牌当无次数限制的雷【杀】使用或打出";
+		let yang = "Mất 1 điểm sinh lực, sau đó trong giai đoạn này bạn có thể sử dụng hoặc bỏ thẻ tay màu đỏ như lửa【Sát】không có giới hạn khoảng cách",
+			yin = "Giảm 1 điểm tối đa sinh lực, sau đó trong giai đoạn này bạn có thể sử dụng hoặc bỏ thẻ錦囊 như sét【Sát】không có giới hạn số lần";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。游戏开始时，你可以改变此转换技的状态。出牌阶段开始时，你可以摸一张牌并：",
+		let start = "Kỹ năng chuyển đổi. Khi trò chơi bắt đầu, bạn có thể thay đổi trạng thái của kỹ năng chuyển đổi này. Giai đoạn xuất bài bắt đầu, bạn có thể rút một thẻ và: ",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	tyqianshou(player) {
 		const bool = player.storage.tyqianshou;
-		let yang = "你可展示并交给其一张红色牌，本回合你不能使用手牌且你与其不能成为牌的目标",
-			yin = "你可令其展示并交给你一张牌，若此牌不为黑色，你失去1点体力";
+		let yang = "Bạn có thể hiển thị và giao cho họ một thẻ màu đỏ, trong lượt này bạn không thể sử dụng thẻ tay và bạn với họ không thể trở thành mục tiêu của thẻ",
+			yin = "Bạn có thể khiến họ hiển thị và giao cho bạn một thẻ, nếu thẻ này không phải màu đen, bạn mất 1 điểm sinh lực";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。其他角色的回合开始时，若其体力值大于你，或其未处于横置状态，",
+		let start = "Kỹ năng chuyển đổi. Khi lượt của nhân vật khác bắt đầu, nếu sinh lực của họ lớn hơn bạn, hoặc họ không ở trạng thái ngang, ",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	tyliupo(player) {
 		const bool = player.storage.tyliupo;
-		let yang = "所有角色不能使用【桃】",
-			yin = "所有即将造成的伤害均视为体力流失";
+		let yang = "Tất cả nhân vật không thể sử dụng【Đào】",
+			yin = "Tất cả sát thương sắp xảy ra đều được coi là mất sinh lực";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。回合开始时，你令本轮：",
+		let start = "Kỹ năng chuyển đổi. Khi vòng bắt đầu, bạn khiến vòng này: ",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	yyyanggu(player) {
 		const bool = player.storage.yyyanggu;
-		let yang = "当你受到伤害后，你可以回复1点体力",
-			yin = "你可以将一张手牌当作【声东击西】使用";
+		let yang = "Khi bạn nhận sát thương, bạn có thể hồi phục 1 điểm sinh lực",
+			yin = "Bạn có thể sử dụng một thẻ tay như【Thanh Đông Kích Tây】";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。",
+		let start = "Kỹ năng chuyển đổi。",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương: ${yang}; Âm: ${yin}${end}`;
 	},
 	hm_shice(player) {
 		const bool = player.storage.hm_shice;
-		let yang = "当你受到属性伤害时，若你的技能数不大于伤害来源，你可以防止此伤害并视为使用一张【火攻】",
-			yin = "当你不因此技能使用牌指定唯一目标后，你可以令其弃置装备区任意张牌，然后此牌额外结算X次（X为其装备区的牌数）";
+		let yang = "Khi bạn nhận sát thương có thuộc tính, nếu số lượng kỹ năng của bạn không vượt quá nguồn gây sát thương, bạn có thể ngăn chặn sát thương này và được coi là sử dụng【Hỏa Công】",
+			yin = "Khi bạn không vì kỹ năng này sử dụng thẻ chỉ định mục tiêu duy nhất, bạn có thể khiến họ loại bỏ bất kỳ thẻ nào trong khu vực trang bị, sau đó thẻ này được tính toán thêm X lần (X là số thẻ trong khu vực trang bị của họ)";
 		if (bool) {
 			yin = `<span class='bluetext'>${yin}</span>`;
 		} else {
 			yang = `<span class='firetext'>${yang}</span>`;
 		}
-		let start = "转换技。",
+		let start = "Kỹ năng chuyển đổi. ",
 			end = "。";
-		return `${start}阳：${yang}；阴：${yin}${end}`;
+		return `${start}Dương：${yang}；Âm：${yin}${end}`;
 	},
 };
 export default dynamicTranslates;
