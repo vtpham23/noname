@@ -10,6 +10,10 @@ const fs = require('fs');
 const app = express();
 const server = http.createServer(app); 
 
+// Thêm middleware để xử lý JSON body trong POST requests
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Cấu hình quan trọng: Cho phép đọc thư mục ẩn của pnpm và thiết lập MIME type chuẩn
 const staticOptions = {
     dotfiles: 'allow', // Cho phép truy cập .pnpm
@@ -30,18 +34,245 @@ app.use(express.static(rootDir, staticOptions)); // Sau đó đến thư mục g
 app.use('/noname', express.static(rootDir, staticOptions)); // Hỗ trợ tiền tố /noname
 app.use('/noname', express.static(distDir, staticOptions));
 
-// 2. Xử lý 404 thông minh: Không gửi nhầm index.html cho các yêu cầu script/asset
+// 2. Thêm các API endpoint để xử lý file operations từ browser
+// API: /checkFile?fileName=...
+app.get('/checkFile', (req, res) => {
+    try {
+        const fileName = req.query.fileName;
+        if (!fileName) {
+            return res.json({ success: false, errorMsg: 'Missing fileName parameter' });
+        }
+        
+        const filePath = path.join(rootDir, fileName);
+        // Kiểm tra bảo mật: đảm bảo đường dẫn không vượt ra ngoài rootDir
+        if (!filePath.startsWith(rootDir)) {
+            return res.json({ success: false, errorMsg: 'Invalid path' });
+        }
+        
+        const stats = fs.statSync(filePath);
+        const fileType = stats.isDirectory() ? 'directory' : 'file';
+        res.json({ success: true, data: fileType });
+    } catch (e) {
+        res.json({ success: true, data: -1 });
+    }
+});
+
+// API: /checkDir?dir=...
+app.get('/checkDir', (req, res) => {
+    try {
+        const dir = req.query.dir;
+        if (!dir) {
+            return res.json({ success: false, errorMsg: 'Missing dir parameter' });
+        }
+        
+        const dirPath = path.join(rootDir, dir);
+        if (!dirPath.startsWith(rootDir)) {
+            return res.json({ success: false, errorMsg: 'Invalid path' });
+        }
+        
+        const stats = fs.statSync(dirPath);
+        const fileType = stats.isDirectory() ? 'directory' : 'file';
+        res.json({ success: true, data: fileType });
+    } catch (e) {
+        res.json({ success: true, data: -1 });
+    }
+});
+
+// API: /readFile?fileName=...
+app.get('/readFile', (req, res) => {
+    try {
+        const fileName = req.query.fileName;
+        if (!fileName) {
+            return res.json({ success: false, errorMsg: 'Missing fileName parameter' });
+        }
+        
+        const filePath = path.join(rootDir, fileName);
+        if (!filePath.startsWith(rootDir)) {
+            return res.json({ success: false, errorMsg: 'Invalid path' });
+        }
+        
+        const data = fs.readFileSync(filePath);
+        const base64Data = Buffer.from(data).toString('base64');
+        res.json({ success: true, data: base64Data });
+    } catch (e) {
+        res.json({ success: false, errorMsg: e.message });
+    }
+});
+
+// API: /readFileAsText?fileName=...
+app.get('/readFileAsText', (req, res) => {
+    try {
+        const fileName = req.query.fileName;
+        if (!fileName) {
+            return res.json({ success: false, errorMsg: 'Missing fileName parameter' });
+        }
+        
+        const filePath = path.join(rootDir, fileName);
+        if (!filePath.startsWith(rootDir)) {
+            return res.json({ success: false, errorMsg: 'Invalid path' });
+        }
+        
+        const data = fs.readFileSync(filePath, 'utf8');
+        res.json({ success: true, data: data });
+    } catch (e) {
+        res.json({ success: false, errorMsg: e.message });
+    }
+});
+
+// API: /removeFile?fileName=...
+app.get('/removeFile', (req, res) => {
+    try {
+        const fileName = req.query.fileName;
+        if (!fileName) {
+            return res.json({ success: false, errorMsg: 'Missing fileName parameter' });
+        }
+        
+        const filePath = path.join(rootDir, fileName);
+        if (!filePath.startsWith(rootDir)) {
+            return res.json({ success: false, errorMsg: 'Invalid path' });
+        }
+        
+        fs.unlinkSync(filePath);
+        res.json({ success: true });
+    } catch (e) {
+        res.json({ success: false, errorMsg: e.message });
+    }
+});
+
+// API: /writeFile - POST endpoint
+app.post('/writeFile', (req, res) => {
+    try {
+        const { data, path: filePath } = req.body;
+        if (!filePath) {
+            return res.json({ success: false, errorMsg: 'Missing path parameter' });
+        }
+        
+        const fullPath = path.join(rootDir, filePath);
+        if (!fullPath.startsWith(rootDir)) {
+            return res.json({ success: false, errorMsg: 'Invalid path' });
+        }
+        
+        // Tạo thư mục cha nếu không tồn tại
+        const dir = path.dirname(fullPath);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        
+        // Ghi file
+        let buffer;
+        if (typeof data === 'string') {
+            buffer = data;
+        } else if (Array.isArray(data)) {
+            buffer = Buffer.from(data);
+        } else {
+            buffer = data;
+        }
+        fs.writeFileSync(fullPath, buffer);
+        res.json({ success: true });
+    } catch (e) {
+        res.json({ success: false, errorMsg: e.message });
+    }
+});
+
+// API: /getFileList?dir=...
+app.get('/getFileList', (req, res) => {
+    try {
+        const dir = req.query.dir;
+        if (!dir) {
+            return res.json({ success: false, errorMsg: 'Missing dir parameter' });
+        }
+        
+        const dirPath = path.join(rootDir, dir);
+        if (!dirPath.startsWith(rootDir)) {
+            return res.json({ success: false, errorMsg: 'Invalid path' });
+        }
+        
+        if (!fs.existsSync(dirPath)) {
+            return res.json({ success: true, data: { folders: [], files: [] } });
+        }
+        
+        const items = fs.readdirSync(dirPath);
+        const folders = [];
+        const files = [];
+        
+        for (const item of items) {
+            const itemPath = path.join(dirPath, item);
+            const stat = fs.statSync(itemPath);
+            if (stat.isDirectory()) {
+                folders.push(item);
+            } else {
+                files.push(item);
+            }
+        }
+        
+        res.json({ success: true, data: { folders, files } });
+    } catch (e) {
+        res.json({ success: false, errorMsg: e.message });
+    }
+});
+
+// API: /createDir?dir=...
+app.get('/createDir', (req, res) => {
+    try {
+        const dir = req.query.dir;
+        if (!dir) {
+            return res.json({ success: false, errorMsg: 'Missing dir parameter' });
+        }
+        
+        const dirPath = path.join(rootDir, dir);
+        if (!dirPath.startsWith(rootDir)) {
+            return res.json({ success: false, errorMsg: 'Invalid path' });
+        }
+        
+        if (!fs.existsSync(dirPath)) {
+            fs.mkdirSync(dirPath, { recursive: true });
+        }
+        
+        res.json({ success: true });
+    } catch (e) {
+        res.json({ success: false, errorMsg: e.message });
+    }
+});
+
+// API: /removeDir?dir=...
+app.get('/removeDir', (req, res) => {
+    try {
+        const dir = req.query.dir;
+        if (!dir) {
+            return res.json({ success: false, errorMsg: 'Missing dir parameter' });
+        }
+        
+        const dirPath = path.join(rootDir, dir);
+        if (!dirPath.startsWith(rootDir)) {
+            return res.json({ success: false, errorMsg: 'Invalid path' });
+        }
+        
+        if (fs.existsSync(dirPath)) {
+            fs.rmSync(dirPath, { recursive: true, force: true });
+        }
+        
+        res.json({ success: true });
+    } catch (e) {
+        res.json({ success: false, errorMsg: e.message });
+    }
+});
+
+// 3. Xử lý 404 thông minh: Không gửi nhầm index.html cho các yêu cầu script/asset
 app.use((req, res, next) => {
     // Nếu yêu cầu file script, style hoặc ảnh mà không thấy, báo 404 thật thay vì gửi index.html
     if (req.path.match(/\.(js|css|png|jpg|json|ts|svg)$/)) {
         return res.status(404).send('Không tìm thấy tài nguyên');
+    }
+    // Nếu là API request, skip SPA fallback - để Express trả lỗi 404 thông thường
+    if (req.path.match(/^\/(checkFile|checkDir|readFile|readFileAsText|removeFile|writeFile|getFileList|createDir|removeDir)/)) {
+        return res.status(404).json({ success: false, errorMsg: 'API endpoint not found' });
     }
     // Chỉ những yêu cầu trang web thông thường mới trả về index.html
     res.sendFile(path.join(distDir, 'index.html'));
 });
 
 
-// 5. Logic Game WebSocket (Giữ nguyên logic gốc của bạn)
+// 4. Logic Game WebSocket (Giữ nguyên logic gốc của bạn)
 (function () {
     // SỬA LỖI TẠI ĐÂY: Thay vì { port: 8080 }, ta dùng { server }
     var wss = new WebSocketServer({ server: server }); 
